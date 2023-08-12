@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { getRandInt } from "./utils";
 import { gameClock, scene } from "./main";
+import { noteTypeKeyMaps } from "./const";
 
 type Note = {
   type: number;
@@ -8,8 +9,6 @@ type Note = {
 };
 
 let notes: Note[] = [];
-
-const noteColors = ["#0079FF", "#00DFA2", "#F6FA70", "#FF0060"];
 
 const initSpeed = 0.1;
 const initSpawnSpan = 1; //s
@@ -36,9 +35,9 @@ export const generateNotes = () => {
     elaspedTimeFromGenerate = 0;
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const colorIdx = getRandInt(noteColors.length);
+    const colorIdx = getRandInt(noteTypeKeyMaps.length);
     const material = new THREE.MeshPhongMaterial({
-      color: noteColors[colorIdx],
+      color: noteTypeKeyMaps[colorIdx].noteColor,
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.x = generatePos;

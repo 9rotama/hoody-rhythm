@@ -1,6 +1,8 @@
 import "./style.css";
 import { generateNotes, moveNotes, removeNotes } from "./note";
 import * as THREE from "three";
+import { charaInit, charaSwing } from "./chara";
+import { noteTypeKeyMaps } from "./const";
 
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -27,6 +29,17 @@ scene.add(dirLight);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+charaInit();
+
+export const keyMaps = noteTypeKeyMaps.map((e) => e.key);
+const onkeydown = (ev: KeyboardEvent) => {
+  if (keyMaps.includes(ev.key)) {
+    charaSwing(ev.key);
+  }
+};
+
+document.onkeydown = onkeydown;
 
 const update = () => {
   requestAnimationFrame(update);
