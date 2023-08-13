@@ -5,6 +5,7 @@ import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
+import { initUi, makeAppearUi, setScore } from "./ui";
 
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -18,6 +19,12 @@ camera.position.z = 10;
 export const rootClock = new THREE.Clock();
 
 export const gameClock = new THREE.Clock(false);
+
+initUi();
+setScore(0);
+
+makeAppearUi();
+
 countDown();
 
 scene.background = new THREE.Color("#ddddff");
