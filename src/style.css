@@ -1,11 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,900;1,300;1,600;1,900&display=swap");
+:root {
+  --button-height: 8px;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
 }
 
 #glcanvas {
   margin: 0;
   width: 100vw;
   height: 100vh;
+}
+
+#countdown {
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#countdown-text {
+  font-size: 100px;
+  font-weight: 900;
+  background: linear-gradient(#222244, #777799);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: center;
+  color: transparent;
+}
+
+#score {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+
+  @media screen and (min-height: 720px) {
+    top: 20px;
+  }
+}
+
+#score-text {
+  font-size: 120px;
+  font-weight: 900;
+  margin: 0px;
+  background: linear-gradient(#c0c0e2, #6c6cb3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  @media screen and (max-height: 500px) {
+    font-size: 90px;
+  }
+}
+
+#buttons {
+  position: absolute;
+  width: 100vw;
+  bottom: 10vh;
+
+  display: flex;
+  align-items: bottom;
+  justify-content: center;
+  gap: 20px;
+
+  @media screen and (max-height: 500px) {
+    bottom: 10px;
+  }
+}
+
+.button {
+  font-family: "Montserrat", sans-serif;
+  width: 100px;
+  height: 100px;
+  font-size: 60px;
+
+  font-weight: 900;
+  background: rgb(63, 63, 63);
+  border-radius: 50%;
+  border: none;
+  color: white;
+
+  @media screen and (max-height: 450px) {
+    width: 80px;
+    height: 80px;
+    font-size: 50px;
+  }
+}
+
+#button-red {
+  background: #ff0060;
+  box-shadow: 0 var(--button-height) 0 #a0003d;
+}
+
+#button-red:active {
+  box-shadow: none;
+  transform: translateY(var(--button-height));
+}
+
+#button-yellow {
+  background: #dee42c;
+  box-shadow: 0 var(--button-height) 0 #989c18;
+}
+
+#button-yellow:active {
+  box-shadow: none;
+  transform: translateY(var(--button-height));
+}
+
+#button-green {
+  background: #00dfa2;
+  box-shadow: 0 var(--button-height) 0 #00976f;
+}
+
+#button-green:active {
+  box-shadow: none;
+  transform: translateY(var(--button-height));
+}
+
+#button-blue {
+  background: #0079ff;
+  box-shadow: 0 var(--button-height) 0 #0052b1;
+}
+
+#button-blue:active {
+  box-shadow: none;
+  transform: translateY(var(--button-height));
+}
+
+.countdown-fadein {
+  animation: fadein 0.2s;
+}
+
+.countdown-fadeout {
+  animation: fadeout 0.2s;
+}
+
+.ui-up {
+  animation: ui-up 0.2s;
+}
+
+.ui-down {
+  animation: ui-down 0.2s;
+}
+
+.is-transparent {
+  opacity: 0;
+}
+
+@keyframes countdown-fadein {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes countdown-fadeout {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+
+@keyframes ui-up {
+  from {
+    transform: translateY(200px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes ui-down {
+  from {
+    transform: translateY(-200px);
+  }
+  to {
+    transform: translateY(0px);
+  }
 }

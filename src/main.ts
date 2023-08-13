@@ -1,7 +1,13 @@
 import "./style.css";
+import { generateNotes, moveNotes, removeNotes } from "./note";
 import * as THREE from "three";
+import { addChara, charaSwing } from "./chara";
+import { noteTypeKeyMaps } from "./const";
+import { countDown } from "./countdown";
+import { addLetterBox } from "./letterbox";
+import { initUi, makeAppearUi, setScore } from "./ui";
 
-const scene = new THREE.Scene();
+export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -10,33 +16,50 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.z = 10;
 
-const clock = new THREE.Clock();
-clock.start();
+export const rootClock = new THREE.Clock();
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const ambientLight = new THREE.AmbientLight("#ddddff", 1.0);
-const material = new THREE.MeshBasicMaterial({ color: 0x555588 });
-const cube = new THREE.Mesh(geometry, material);
+export const gameClock = new THREE.Clock(false);
+
+initUi();
+setScore(0);
+makeAppearUi();
+
+countDown();
+
 scene.background = new THREE.Color("#ddddff");
-scene.add(cube);
-scene.add(ambientLight);
+
+const hemiLight = new THREE.HemisphereLight("#000000", "#ddddff", 5.0);
+scene.add(hemiLight);
+const dirLight = new THREE.DirectionalLight("#ddddff", 10.0);
+scene.add(dirLight);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+document.getElementById("app")?.appendChild(renderer.domElement);
 
-function render() {
-  requestAnimationFrame(render);
-  cube.position.x = Math.sin(clock.getElapsedTime()) * 5;
-  cube.position.y = Math.cos(clock.getElapsedTime()) * 5;
+addChara();
+
+addLetterBox();
+
+const keyMaps = noteTypeKeyMaps.map((e) => e.key);
+const onkeydown = (ev: KeyboardEvent) => {
+  if (keyMaps.includes(ev.key)) {
+    charaSwing(ev.key);
+  }
+};
+
+document.onkeydown = onkeydown;
+
+const update = () => {
+  requestAnimationFrame(update);
+  generateNotes();
+  moveNotes();
+  removeNotes(scene);
   renderer.render(scene, camera);
-}
-render();
+};
+update();
 
-window.addEventListener("resize", onResize);
-
-function onResize() {
-  // サイズを取得
+const onResize = () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -47,4 +70,5 @@ function onResize() {
   // カメラのアスペクト比を正す
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-}
+};
+window.addEventListener("resize", onResize);
