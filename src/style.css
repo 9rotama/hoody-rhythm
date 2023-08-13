@@ -1,11 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,900;1,300;1,600;1,900&display=swap");
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
 }
 
 #glcanvas {
   margin: 0;
   width: 100vw;
   height: 100vh;
+}
+
+#countdown {
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#countdown-text {
+  font-size: 100px;
+  font-weight: 900;
+  background: linear-gradient(#222244, #777799);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: center;
+  color: transparent;
+}
+
+.fadein {
+  animation: fadein 0.2s;
+}
+
+.fadeout {
+  animation: fadeout 0.2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
 }

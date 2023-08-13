@@ -3,6 +3,7 @@ import { generateNotes, moveNotes, removeNotes } from "./note";
 import * as THREE from "three";
 import { charaInit, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
+import { countDown } from "./countdown";
 
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -14,10 +15,9 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 10;
 
 export const rootClock = new THREE.Clock();
-rootClock.start();
 
-export const gameClock = new THREE.Clock();
-gameClock.start();
+export const gameClock = new THREE.Clock(false);
+countDown();
 
 scene.background = new THREE.Color("#ddddff");
 
