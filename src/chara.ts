@@ -10,7 +10,7 @@ const spritePlane = new THREE.Mesh(geometry, defaultMaterial);
 
 let spriteChangeStack = 0;
 
-export const charaInit = () => {
+export const addChara = () => {
   spritePlane.position.x = charaPos;
   scene.add(spritePlane);
 };
