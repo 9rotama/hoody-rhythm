@@ -9,16 +9,11 @@ export const countDown = async () => {
     await sleep(1000);
     countdownText.classList.add("fadein");
     countdownText.textContent = "READY...";
-
     await sleep(1000);
-
     countdownText.textContent = "GO!!";
-
     await sleep(800);
-
     countdownText.classList.add("fadeout");
     await sleep(200);
-
     countdownText.textContent = "";
   }
 
