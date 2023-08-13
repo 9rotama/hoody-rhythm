@@ -136,19 +136,19 @@ body {
 }
 
 .countdown-fadein {
-  animation: fadein 0.2s;
+  animation: countdown-fadein 0.2s;
 }
 
 .countdown-fadeout {
-  animation: fadeout 0.2s;
+  animation: countdown-fadeout 0.2s;
 }
 
 .ui-up {
-  animation: ui-up 0.2s;
+  animation: ui-up 0.4s;
 }
 
 .ui-down {
-  animation: ui-down 0.2s;
+  animation: ui-down 0.4s;
 }
 
 .is-transparent {

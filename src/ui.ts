@@ -13,12 +13,14 @@ export const setScore = (score: number) => {
 
 export const initUi = () => {
   if (scoreText) {
-    scoreText?.classList.add("is-transparent");
+    scoreText.classList.add("is-transparent");
   } else {
     throw new Error("score elements not found");
   }
 
   if (buttons) {
+    buttons.classList.add("is-transparent");
+
     noteTypeKeyMaps.forEach((e) => {
       const button = document.createElement("button");
       button.classList.add("button");
@@ -37,6 +39,13 @@ export const makeAppearUi = () => {
     scoreText.classList.add("ui-down");
   } else {
     throw new Error("score elements not found");
+  }
+
+  if (buttons) {
+    buttons.classList.remove("is-transparent");
+    buttons.classList.add("ui-up");
+  } else {
+    throw new Error("button elements not found");
   }
 };
 
