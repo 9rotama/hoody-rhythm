@@ -22,7 +22,6 @@ export const gameClock = new THREE.Clock(false);
 
 initUi();
 setScore(0);
-
 makeAppearUi();
 
 countDown();
