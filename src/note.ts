@@ -10,8 +10,8 @@ type Note = {
 
 let notes: Note[] = [];
 
-const initSpeed = 0.1;
-const initSpawnSpan = 1; //s
+const initSpeed = 0.03;
+const initSpawnSpan = 4; //s
 const increaseSpeedByTime = 0.0035;
 
 const generatePos = -20;
