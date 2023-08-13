@@ -1,18 +1,22 @@
 export const noteTypeKeyMaps = [
   {
     key: "z",
-    noteColor: "#0079FF",
+    name: "red",
+    noteColor: "#FF0060",
   },
   {
     key: "x",
-    noteColor: "#00DFA2",
-  },
-  {
-    key: "c",
+    name: "yellow",
     noteColor: "#F6FA70",
   },
   {
+    key: "c",
+    name: "green",
+    noteColor: "#00DFA2",
+  },
+  {
     key: "v",
-    noteColor: "#FF0060",
+    name: "blue",
+    noteColor: "#0079FF",
   },
 ];

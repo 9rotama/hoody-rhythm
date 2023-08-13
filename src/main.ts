@@ -41,7 +41,7 @@ addChara();
 
 addLetterBox();
 
-export const keyMaps = noteTypeKeyMaps.map((e) => e.key);
+const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
   if (keyMaps.includes(ev.key)) {
     charaSwing(ev.key);

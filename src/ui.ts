@@ -1,4 +1,7 @@
+import { noteTypeKeyMaps } from "./const";
+
 const scoreText = document.getElementById("score-text");
+const buttons = document.getElementById("buttons");
 
 export const setScore = (score: number) => {
   if (scoreText) {
@@ -13,6 +16,18 @@ export const initUi = () => {
     scoreText?.classList.add("is-transparent");
   } else {
     throw new Error("score elements not found");
+  }
+
+  if (buttons) {
+    noteTypeKeyMaps.forEach((e) => {
+      const button = document.createElement("button");
+      button.classList.add("button");
+      button.id = `button-${e.name}`;
+      button.textContent = e.key.toUpperCase();
+      buttons.appendChild(button);
+    });
+  } else {
+    throw new Error("button elements not found");
   }
 };
 
