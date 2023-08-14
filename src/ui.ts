@@ -1,3 +1,4 @@
+import { charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 
 const scoreText = document.getElementById("score-text");
@@ -44,6 +45,9 @@ export const initUi = () => {
       button.classList.add("button");
       button.id = `button-${e.name}`;
       button.textContent = e.key.toUpperCase();
+      button.addEventListener("click", () => {
+        charaSwing(e.key);
+      });
       buttons.appendChild(button);
     });
   } else {
