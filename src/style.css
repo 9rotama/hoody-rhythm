@@ -135,6 +135,18 @@ body {
   transform: translateY(var(--button-height));
 }
 
+#fullscreen-switch {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: white;
+  background: #1e1e36dd;
+  border: none;
+}
+
 .countdown-fadein {
   animation: countdown-fadein 0.2s;
 }

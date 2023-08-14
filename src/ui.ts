@@ -2,6 +2,24 @@ import { noteTypeKeyMaps } from "./const";
 
 const scoreText = document.getElementById("score-text");
 const buttons = document.getElementById("buttons");
+const fullscreenSwitch = document.getElementById("fullscreen-switch");
+
+let isFullscreen = false;
+
+const switchFullscreen = () => {
+  if (fullscreenSwitch) {
+    console.log(isFullscreen);
+    if (isFullscreen) {
+      document.exitFullscreen();
+      isFullscreen = false;
+    } else {
+      document.documentElement.requestFullscreen();
+      isFullscreen = true;
+    }
+  } else {
+    throw new Error("fullscreen switch element not found");
+  }
+};
 
 export const setScore = (score: number) => {
   if (scoreText) {
@@ -30,6 +48,14 @@ export const initUi = () => {
     });
   } else {
     throw new Error("button elements not found");
+  }
+
+  if (fullscreenSwitch) {
+    fullscreenSwitch.addEventListener("click", () => {
+      switchFullscreen();
+    });
+  } else {
+    throw new Error("fullscreen switch element not found");
   }
 };
 
