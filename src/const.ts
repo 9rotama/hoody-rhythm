@@ -1,6 +1,6 @@
 export const noteTypeKeyMaps = [
   {
-    key: "d",
+    key: "f",
     name: "red",
     noteColor: "#FF0060",
   },
