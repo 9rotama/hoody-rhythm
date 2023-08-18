@@ -1,11 +1,14 @@
 import { charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
+import { judgeNote } from "./judge";
 
 const scoreText = document.getElementById("score-text");
 const buttons = document.getElementById("buttons");
 const fullscreenSwitch = document.getElementById("fullscreen-switch");
 
 let isFullscreen = false;
+
+let score = 0;
 
 const switchFullscreen = () => {
   if (fullscreenSwitch) {
@@ -22,12 +25,17 @@ const switchFullscreen = () => {
   }
 };
 
-export const setScore = (score: number) => {
+export const setScoreText = (score: number) => {
   if (scoreText) {
     scoreText.textContent = score.toString();
   } else {
     throw new Error("score elements not found");
   }
+};
+
+export const incrementScore = (increment: number) => {
+  score += increment;
+  setScoreText(score);
 };
 
 export const initUi = () => {
@@ -47,6 +55,7 @@ export const initUi = () => {
       button.textContent = e.key.toUpperCase();
       button.addEventListener("click", () => {
         charaSwing(e.key);
+        judgeNote(e.key);
       });
       buttons.appendChild(button);
     });

@@ -1,11 +1,12 @@
 import "./style.css";
-import { generateNotes, moveNotes, removeNotes } from "./note";
+import { generateNotes, moveNotes, removeOutNotes } from "./note";
 import * as THREE from "three";
 import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
-import { initUi, makeAppearUi, setScore } from "./ui";
+import { initUi, makeAppearUi, setScoreText } from "./ui";
+import { judgeNote } from "./judge";
 
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -21,7 +22,7 @@ export const rootClock = new THREE.Clock();
 export const gameClock = new THREE.Clock(false);
 
 initUi();
-setScore(0);
+setScoreText(0);
 makeAppearUi();
 
 countDown();
@@ -45,6 +46,7 @@ const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
   if (keyMaps.includes(ev.key)) {
     charaSwing(ev.key);
+    judgeNote(ev.key);
   }
 };
 
@@ -54,7 +56,7 @@ const update = () => {
   requestAnimationFrame(update);
   generateNotes();
   moveNotes();
-  removeNotes(scene);
+  removeOutNotes(scene);
   renderer.render(scene, camera);
 };
 update();

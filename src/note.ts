@@ -4,11 +4,12 @@ import { gameClock, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 
 type Note = {
+  id: number;
   type: number;
   mesh: THREE.Mesh;
 };
 
-let notes: Note[] = [];
+export let notes: Note[] = [];
 
 const initSpeed = 0.03;
 const initSpawnSpan = 4; //s
@@ -18,6 +19,7 @@ const generatePos = -20;
 const killPos = 20;
 
 let elaspedTimeFromGenerate = 0;
+let id = 0;
 
 const getSpeedRate = () => {
   // 現在の時間を加味してスピードを計算し、初期のスピードより何倍早いかを返す
@@ -44,7 +46,7 @@ export const generateNotes = () => {
 
     scene.add(mesh);
 
-    notes.push({ type: 0, mesh: mesh });
+    notes.push({ id: ++id, type: colorIdx, mesh: mesh });
   }
 };
 
@@ -58,7 +60,7 @@ export const moveNotes = () => {
   });
 };
 
-export const removeNotes = (scene: THREE.Scene) => {
+export const removeOutNotes = (scene: THREE.Scene) => {
   notes.forEach((note, i) => {
     if (note.mesh.position.x >= killPos) {
       notes.splice(i, 1);

@@ -2,9 +2,9 @@ import * as THREE from "three";
 import { scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 
-export const charaPos = 8;
+export const charaPos = 9.5;
 
-const geometry = new THREE.PlaneGeometry(3, 3);
+const geometry = new THREE.PlaneGeometry(5, 5);
 const defaultMaterial = new THREE.MeshPhongMaterial();
 const spritePlane = new THREE.Mesh(geometry, defaultMaterial);
 
