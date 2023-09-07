@@ -8,6 +8,10 @@ import { addLetterBox } from "./letterbox";
 import { initUi, makeAppearUi, setScoreText } from "./ui";
 import { judgeNote } from "./judge";
 
+type GameState = "ready" | "playing" | "result";
+
+export const gameState: GameState = "ready";
+
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
