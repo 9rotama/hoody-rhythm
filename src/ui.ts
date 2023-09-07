@@ -41,13 +41,13 @@ export const incrementScore = (increment: number) => {
 
 export const initUi = () => {
   if (scoreText) {
-    scoreText.classList.add("is-transparent");
+    scoreText.classList.add("is-hidden");
   } else {
     throw new Error("score elements not found");
   }
 
   if (buttons) {
-    buttons.classList.add("is-transparent");
+    buttons.classList.add("is-hidden");
 
     noteTypeKeyMaps.forEach((e) => {
       const button = document.createElement("button");
@@ -73,7 +73,7 @@ export const initUi = () => {
   }
 
   if (retryButton) {
-    retryButton.classList.add("is-transparent");
+    retryButton.classList.add("is-hidden");
   } else {
     throw new Error("retry button elements not found");
   }
@@ -81,14 +81,14 @@ export const initUi = () => {
 
 export const makeAppearUi = () => {
   if (scoreText) {
-    scoreText.classList.remove("is-transparent");
+    scoreText.classList.remove("is-hidden");
     scoreText.classList.add("ui-down");
   } else {
     throw new Error("score elements not found");
   }
 
   if (buttons) {
-    buttons.classList.remove("is-transparent");
+    buttons.classList.remove("is-hidden");
     buttons.classList.add("ui-up");
   } else {
     throw new Error("button elements not found");

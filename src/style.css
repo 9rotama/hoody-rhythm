@@ -182,7 +182,8 @@ button {
   animation: ui-down 0.4s;
 }
 
-.is-transparent {
+.is-hidden {
+  display: none;
   opacity: 0;
 }
 
