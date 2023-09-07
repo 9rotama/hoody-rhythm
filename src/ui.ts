@@ -52,6 +52,7 @@ export const initUi = () => {
     noteTypeKeyMaps.forEach((e) => {
       const button = document.createElement("button");
       button.classList.add("button");
+      button.classList.add("is-center");
       button.id = `button-${e.name}`;
       button.textContent = e.key.toUpperCase();
       button.addEventListener("click", () => {
