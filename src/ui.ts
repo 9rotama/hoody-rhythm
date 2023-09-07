@@ -3,7 +3,7 @@ import { noteTypeKeyMaps } from "./const";
 import { judgeNote } from "./judge";
 
 const scoreText = document.getElementById("score-text");
-const buttons = document.getElementById("buttons");
+const buttonContainer = document.getElementById("button-container");
 const fullscreenSwitch = document.getElementById("fullscreen-switch");
 const retryButton = document.getElementById("retry-button");
 
@@ -46,8 +46,8 @@ export const initUi = () => {
     throw new Error("score elements not found");
   }
 
-  if (buttons) {
-    buttons.classList.add("is-hidden");
+  if (buttonContainer) {
+    buttonContainer.classList.add("is-hidden");
 
     noteTypeKeyMaps.forEach((e) => {
       const button = document.createElement("button");
@@ -58,7 +58,7 @@ export const initUi = () => {
         charaSwing(e.key);
         judgeNote(e.key);
       });
-      buttons.appendChild(button);
+      buttonContainer.appendChild(button);
     });
   } else {
     throw new Error("button elements not found");
@@ -87,9 +87,9 @@ export const makeAppearUi = () => {
     throw new Error("score elements not found");
   }
 
-  if (buttons) {
-    buttons.classList.remove("is-hidden");
-    buttons.classList.add("ui-up");
+  if (buttonContainer) {
+    buttonContainer.classList.remove("is-hidden");
+    buttonContainer.classList.add("ui-up");
   } else {
     throw new Error("button elements not found");
   }

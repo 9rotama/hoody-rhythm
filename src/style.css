@@ -147,7 +147,7 @@ button {
   border: none;
 }
 
-#bottom-container {
+.bottom-container {
   position: absolute;
   width: 100vw;
   bottom: 10vh;
