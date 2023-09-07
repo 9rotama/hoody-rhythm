@@ -9,7 +9,7 @@ type Note = {
   mesh: THREE.Mesh;
 };
 
-export let notes: Note[] = [];
+export const notes: Note[] = [];
 
 const initSpeed = 0.03;
 const initSpawnSpan = 4; //s

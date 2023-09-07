@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,900;1,300;1,600;1,900&display=swap");
+
 :root {
   --button-height: 8px;
 }
 
 body {
   overflow: clip;
-
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 button {
@@ -25,7 +25,6 @@ button {
 #countdown {
   width: 100vw;
   height: 100vh;
-
   position: absolute;
   display: flex;
   align-items: center;
@@ -35,8 +34,7 @@ button {
 #countdown-text {
   font-size: 100px;
   font-weight: 900;
-  background: linear-gradient(#222244, #777799);
-  -webkit-background-clip: text;
+  background: linear-gradient(#224, #779);
   background-clip: text;
   text-align: center;
   color: transparent;
@@ -56,9 +54,8 @@ button {
 #score-text {
   font-size: 120px;
   font-weight: 900;
-  margin: 0px;
-  background: linear-gradient(#222244, #6c6cb3);
-  -webkit-background-clip: text;
+  margin: 0;
+  background: linear-gradient(#224, #6c6cb3);
   background-clip: text;
   color: transparent;
 
@@ -77,12 +74,12 @@ button {
 }
 
 .button {
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   width: 100px;
   height: 100px;
   font-size: 60px;
   font-weight: 900;
-  background: rgb(63, 63, 63);
+  background: rgb(63 63 63);
   border-radius: 50%;
   border: none;
   color: white;
@@ -163,7 +160,7 @@ button {
 }
 
 #retry-button {
-  background: rgb(63, 63, 63);
+  background: rgb(63 63 63);
   font-size: 50px;
   color: white;
   padding: 20px 30px;
@@ -207,19 +204,21 @@ button {
 
 @keyframes countdown-fadein {
   from {
-    opacity: 0%;
+    opacity: 0;
   }
+
   to {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
 @keyframes countdown-fadeout {
   from {
-    opacity: 100%;
+    opacity: 1;
   }
+
   to {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
@@ -227,8 +226,9 @@ button {
   from {
     transform: translateY(-200px);
   }
+
   to {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 }
 
@@ -236,15 +236,17 @@ button {
   from {
     transform: translateY(200px);
   }
+
   to {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 }
 
 @keyframes top-ui-hide {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
+
   to {
     transform: translateY(-200px);
   }
@@ -252,8 +254,9 @@ button {
 
 @keyframes bottom-ui-hide {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
+
   to {
     transform: translateY(200px);
   }
