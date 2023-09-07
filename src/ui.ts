@@ -5,6 +5,7 @@ import { judgeNote } from "./judge";
 const scoreText = document.getElementById("score-text");
 const buttons = document.getElementById("buttons");
 const fullscreenSwitch = document.getElementById("fullscreen-switch");
+const retryButton = document.getElementById("retry-button");
 
 let isFullscreen = false;
 
@@ -69,6 +70,12 @@ export const initUi = () => {
     });
   } else {
     throw new Error("fullscreen switch element not found");
+  }
+
+  if (retryButton) {
+    retryButton.classList.add("is-transparent");
+  } else {
+    throw new Error("retry button elements not found");
   }
 };
 
