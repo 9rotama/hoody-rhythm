@@ -67,7 +67,7 @@ button {
   }
 }
 
-#buttons {
+#button-container {
   align-items: bottom;
   gap: 20px;
 
