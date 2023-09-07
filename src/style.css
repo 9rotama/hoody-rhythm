@@ -12,6 +12,10 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+button {
+  all: unset;
+}
+
 #glcanvas {
   margin: 0;
   width: 100vw;
@@ -64,13 +68,7 @@ body {
 }
 
 #buttons {
-  position: absolute;
-  width: 100vw;
-  bottom: 10vh;
-
-  display: flex;
   align-items: bottom;
-  justify-content: center;
   gap: 20px;
 
   @media screen and (max-height: 500px) {
@@ -149,6 +147,25 @@ body {
   border: none;
 }
 
+#bottom-container {
+  position: absolute;
+  width: 100vw;
+  bottom: 10vh;
+}
+
+#retry-button-container {
+  position: absolute;
+}
+
+#retry-button {
+  background: rgb(63, 63, 63);
+  font-size: 50px;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 50vh;
+  font-weight: 600;
+}
+
 .countdown-fadein {
   animation: countdown-fadein 0.2s;
 }
@@ -167,6 +184,11 @@ body {
 
 .is-transparent {
   opacity: 0;
+}
+
+.is-flex-center {
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes countdown-fadein {
