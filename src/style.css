@@ -179,12 +179,20 @@ button {
   animation: countdown-fadeout 0.2s;
 }
 
-.ui-up {
-  animation: ui-up 0.4s;
+.top-ui-appear {
+  animation: top-ui-appear 0.4s;
 }
 
-.ui-down {
-  animation: ui-down 0.4s;
+.bottom-ui-appear {
+  animation: bottom-ui-appear 0.4s;
+}
+
+.top-ui-hide {
+  animation: top-ui-hide 0.4s;
+}
+
+.bottom-ui-hide {
+  animation: bottom-ui-hide 0.4s;
 }
 
 .is-hidden {
@@ -215,7 +223,16 @@ button {
   }
 }
 
-@keyframes ui-up {
+@keyframes top-ui-appear {
+  from {
+    transform: translateY(-200px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes bottom-ui-appear {
   from {
     transform: translateY(200px);
   }
@@ -224,11 +241,20 @@ button {
   }
 }
 
-@keyframes ui-down {
+@keyframes top-ui-hide {
   from {
-    transform: translateY(-200px);
+    transform: translateY(0px);
   }
   to {
+    transform: translateY(-200px);
+  }
+}
+
+@keyframes bottom-ui-hide {
+  from {
     transform: translateY(0px);
+  }
+  to {
+    transform: translateY(200px);
   }
 }

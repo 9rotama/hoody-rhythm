@@ -5,7 +5,7 @@ import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
-import { initUi, makeAppearUi, setScoreText } from "./ui";
+import { initUi, makeAppearPlayingUi, setScoreText } from "./ui";
 import { judgeNote } from "./judge";
 
 type GameState = "ready" | "playing" | "result";
@@ -27,7 +27,7 @@ export const gameClock = new THREE.Clock(false);
 
 initUi();
 setScoreText(0);
-makeAppearUi();
+makeAppearPlayingUi();
 
 countDown();
 

@@ -80,20 +80,42 @@ export const initUi = () => {
   }
 };
 
-export const makeAppearUi = () => {
+export const makeAppearPlayingUi = () => {
   if (scoreText) {
     scoreText.classList.remove("is-hidden");
-    scoreText.classList.add("ui-down");
+    scoreText.classList.remove("top-ui-hide");
+    scoreText.classList.add("top-ui-appear");
   } else {
     throw new Error("score elements not found");
   }
 
   if (buttonContainer) {
     buttonContainer.classList.remove("is-hidden");
-    buttonContainer.classList.add("ui-up");
+    buttonContainer.classList.remove("bottom-ui-hide");
+    buttonContainer.classList.add("bottom-ui-appear");
   } else {
     throw new Error("button elements not found");
   }
 };
 
-export const makeDisappearUi = () => {};
+export const makeDisappearPlayingUi = () => {
+  if (scoreText) {
+    scoreText.classList.remove("top-ui-appear");
+    scoreText.classList.add("top-ui-hide");
+    setTimeout(() => {
+      scoreText.classList.add("is-hidden");
+    }, 400);
+  } else {
+    throw new Error("score elements not found");
+  }
+
+  if (buttonContainer) {
+    buttonContainer.classList.remove("bottom-ui-appear");
+    buttonContainer.classList.add("bottom-ui-hide");
+    setTimeout(() => {
+      buttonContainer.classList.add("is-hidden");
+    }, 400);
+  } else {
+    throw new Error("button elements not found");
+  }
+};
