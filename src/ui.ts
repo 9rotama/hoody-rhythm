@@ -119,3 +119,13 @@ export const makeDisappearPlayingUi = () => {
     throw new Error("button elements not found");
   }
 };
+
+export const makeAppearResultUi = () => {
+  if (retryButton) {
+    retryButton.classList.remove("is-hidden");
+    retryButton.classList.remove("bottom-ui-hide");
+    retryButton.classList.add("bottom-ui-appear");
+  } else {
+    throw new Error("retryButton element not found");
+  }
+};

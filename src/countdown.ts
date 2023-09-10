@@ -1,4 +1,4 @@
-import { gameClock } from "./main";
+import { gameClock, setGameState } from "./main";
 
 const countdownText = document.getElementById("countdown-text");
 
@@ -16,6 +16,7 @@ export const countDown = async () => {
     await sleep(200);
     countdownText.textContent = "";
     gameClock.start();
+    setGameState("playing");
   } else {
     throw new Error("countdown elements not found");
   }

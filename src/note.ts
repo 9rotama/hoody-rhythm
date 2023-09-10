@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { getRandInt } from "./utils";
-import { gameClock, scene } from "./main";
+import { gameClock, getGameState, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
+import { gameOver } from "./gameover";
 
 type Note = {
   id: number;
@@ -63,6 +64,9 @@ export const moveNotes = () => {
 export const removeOutNotes = (scene: THREE.Scene) => {
   notes.forEach((note, i) => {
     if (note.mesh.position.x >= killPos) {
+      if (getGameState() == "playing") {
+        gameOver();
+      }
       notes.splice(i, 1);
       scene.remove(note.mesh);
     }

@@ -10,7 +10,15 @@ import { judgeNote } from "./judge";
 
 type GameState = "ready" | "playing" | "result";
 
-export const gameState: GameState = "ready";
+let gameState: GameState = "ready";
+
+export const getGameState = () => {
+  return gameState;
+};
+
+export const setGameState = (state: GameState) => {
+  gameState = state;
+};
 
 export const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
