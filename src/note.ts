@@ -66,9 +66,17 @@ export const removeOutNotes = (scene: THREE.Scene) => {
     if (note.mesh.position.x >= killPos) {
       if (getGameState() == "playing") {
         result();
+        removeAllNotes(scene);
       }
       notes.splice(i, 1);
       scene.remove(note.mesh);
     }
   });
+};
+
+export const removeAllNotes = (scene: THREE.Scene) => {
+  notes.forEach((note) => {
+    scene.remove(note.mesh);
+  });
+  notes.splice(0);
 };

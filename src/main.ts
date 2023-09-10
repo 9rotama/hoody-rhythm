@@ -69,9 +69,12 @@ document.onkeydown = onkeydown;
 
 const update = () => {
   requestAnimationFrame(update);
-  generateNotes();
-  moveNotes();
-  removeOutNotes(scene);
+  if (gameState === "playing") {
+    generateNotes();
+    moveNotes();
+    removeOutNotes(scene);
+  }
+
   renderer.render(scene, camera);
 };
 update();
