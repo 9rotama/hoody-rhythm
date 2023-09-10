@@ -35,6 +35,11 @@ export const setScoreText = (score: number) => {
   }
 };
 
+export const resetScore = () => {
+  score = 0;
+  setScoreText(0);
+};
+
 export const incrementScore = (increment: number) => {
   score += increment;
   setScoreText(score);
