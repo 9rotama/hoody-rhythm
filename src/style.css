@@ -52,6 +52,7 @@ button {
   }
 }
 
+
 #score-text {
   font-size: 120px;
   font-weight: 900;
@@ -64,6 +65,36 @@ button {
   @media screen and (max-height: 500px) {
     font-size: 90px;
   }
+}
+
+
+#result {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 100vh;
+  background: #222244e0;
+  backdrop-filter: blur(10px);
+  z-index: 9999999;
+}
+
+#result-score-prefix {
+  font-size: 10vh;
+  margin: 0;
+  color: rgba(200 200 255 / 50%);
+}
+
+#result-score-text {
+  font-size: 35vh;
+  font-weight: 900;
+  margin: 0;
+  background: rgba(200 200 255 / 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 #button-container {
@@ -157,21 +188,29 @@ button {
   bottom: 10vh;
 }
 
-#retry-button-container {
-  position: absolute;
-}
-
 #retry-button {
-  background: rgb(63 63 63);
+  position: absolute;
+  bottom: 0;
+  width: 50vw;
+  text-align: center;
+  background: #224;
   font-size: 50px;
   color: white;
-  padding: 20px 30px;
-  border-radius: 50vh;
+  padding: 5vh 0;
   font-weight: 600;
+  cursor: pointer;
+  transition-duration: 100ms;
 
   @media screen and (max-height: 500px) {
+    padding: 5vh 0;
     font-size: 30px;
   }
+}
+
+#retry-button:hover {
+  background: white;
+  color: #224;
+
 }
 
 .countdown-fadein {
@@ -198,8 +237,16 @@ button {
   animation: bottom-ui-hide 0.4s;
 }
 
+.result-ui-appear {
+  animation: result-ui-appear 0.4s;
+}
+
+.result-ui-hide {
+  animation: result-ui-hide 0.4s;
+}
+
 .is-hidden {
-  display: none;
+  display: none !important;
   opacity: 0;
 }
 
@@ -265,5 +312,25 @@ button {
 
   to {
     transform: translateY(200px);
+  }
+}
+
+@keyframes result-ui-appear {
+  from {
+    transform: translateX(-50vw);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes result-ui-hide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50vw);
   }
 }

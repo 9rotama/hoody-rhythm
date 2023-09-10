@@ -7,6 +7,7 @@ const scoreText = document.getElementById("score-text");
 const buttonContainer = document.getElementById("button-container");
 const fullscreenSwitch = document.getElementById("fullscreen-switch");
 const retryButton = document.getElementById("retry-button");
+const result = document.getElementById("result");
 
 let isFullscreen = false;
 
@@ -83,9 +84,14 @@ export const initUi = () => {
     retryButton.addEventListener("click", () => {
       retry();
     });
-    retryButton.classList.add("is-hidden");
   } else {
     throw new Error("retry button elements not found");
+  }
+
+  if (result) {
+    result.classList.add("is-hidden");
+  } else {
+    throw new Error("result element not found");
   }
 };
 
@@ -130,23 +136,23 @@ export const makeDisappearPlayingUi = () => {
 };
 
 export const makeAppearResultUi = () => {
-  if (retryButton) {
-    retryButton.classList.remove("is-hidden");
-    retryButton.classList.remove("bottom-ui-hide");
-    retryButton.classList.add("bottom-ui-appear");
+  if (result) {
+    result.classList.remove("result-ui-hide");
+    result.classList.remove("is-hidden");
+    result.classList.add("result-ui-appear");
   } else {
-    throw new Error("retryButton element not found");
+    throw new Error("result element not found");
   }
 };
 
 export const makeDisappearResultUi = () => {
-  if (retryButton) {
-    retryButton.classList.remove("bottom-ui-appear");
-    retryButton.classList.add("bottom-ui-hide");
+  if (result) {
+    result.classList.remove("result-ui-appear");
+    result.classList.add("result-ui-hide");
     setTimeout(() => {
-      retryButton.classList.add("is-hidden");
+      result.classList.add("is-hidden");
     }, 400);
   } else {
-    throw new Error("retryButton element not found");
+    throw new Error("result element not found");
   }
 };
