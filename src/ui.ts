@@ -6,8 +6,9 @@ import { retry } from "./result";
 const scoreText = document.getElementById("score-text");
 const buttonContainer = document.getElementById("button-container");
 const fullscreenSwitch = document.getElementById("fullscreen-switch");
-const retryButton = document.getElementById("retry-button");
 const result = document.getElementById("result");
+const resultScoreText = document.getElementById("result-score-text");
+const retryButton = document.getElementById("retry-button");
 
 let isFullscreen = false;
 
@@ -142,6 +143,12 @@ export const makeAppearResultUi = () => {
     result.classList.add("result-ui-appear");
   } else {
     throw new Error("result element not found");
+  }
+
+  if (resultScoreText) {
+    resultScoreText.textContent = score.toString();
+  } else {
+    throw new Error("result score element not found");
   }
 };
 
