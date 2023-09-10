@@ -3,6 +3,7 @@ import { getRandInt } from "./utils";
 import { gameClock, getGameState, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 import { result } from "./result";
+import { judgeRange } from "./judge";
 
 type Note = {
   id: number;
@@ -17,7 +18,6 @@ const initSpawnSpan = 4; //s
 const increaseSpeedByTime = 0.0035;
 
 const generatePos = -20;
-const killPos = 20;
 
 let elapsedTimeFromGenerate = 0;
 let id = 0;
@@ -63,7 +63,7 @@ export const moveNotes = () => {
 
 export const removeOutNotes = (scene: THREE.Scene) => {
   notes.forEach((note, i) => {
-    if (note.mesh.position.x >= killPos) {
+    if (note.mesh.position.x >= judgeRange.end) {
       if (getGameState() == "playing") {
         result();
         removeAllNotes(scene);

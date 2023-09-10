@@ -4,7 +4,7 @@ import { scene } from "./main";
 import { notes } from "./note";
 import { incrementScore } from "./ui";
 
-const judgeRange = { start: charaPos - 3, end: charaPos + 3 };
+export const judgeRange = { start: charaPos - 5, end: charaPos };
 
 const isInJudgeRange = (pos: number) => {
   return judgeRange.start <= pos && pos <= judgeRange.end;
