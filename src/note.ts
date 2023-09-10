@@ -19,7 +19,7 @@ const increaseSpeedByTime = 0.0035;
 const generatePos = -20;
 const killPos = 20;
 
-let elaspedTimeFromGenerate = 0;
+let elapsedTimeFromGenerate = 0;
 let id = 0;
 
 const getSpeedRate = () => {
@@ -30,12 +30,12 @@ const getSpeedRate = () => {
 };
 
 export const generateNotes = () => {
-  elaspedTimeFromGenerate += gameClock.getDelta();
+  elapsedTimeFromGenerate += gameClock.getDelta();
   const spawnSpan = initSpawnSpan / getSpeedRate();
   //スピードに半比例してスポーン周期を狭くする
 
-  if (elaspedTimeFromGenerate > spawnSpan) {
-    elaspedTimeFromGenerate = 0;
+  if (elapsedTimeFromGenerate > spawnSpan) {
+    elapsedTimeFromGenerate = 0;
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const colorIdx = getRandInt(noteTypeKeyMaps.length);
