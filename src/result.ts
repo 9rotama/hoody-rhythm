@@ -1,7 +1,7 @@
 import { setGameState } from "./main";
 import { makeAppearResultUi, makeDisappearPlayingUi } from "./ui";
 
-export const gameOver = () => {
+export const result = () => {
   makeDisappearPlayingUi();
   setGameState("result");
   makeAppearResultUi();
