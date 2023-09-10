@@ -36,6 +36,7 @@ button {
   font-weight: 900;
   background: linear-gradient(#224, #779);
   background-clip: text;
+  -webkit-background-clip: text;
   text-align: center;
   color: transparent;
 }
@@ -57,6 +58,7 @@ button {
   margin: 0;
   background: linear-gradient(#224, #6c6cb3);
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
 
   @media screen and (max-height: 500px) {
