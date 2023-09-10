@@ -17,6 +17,9 @@ export const countDown = async () => {
     countdownText.textContent = "";
     gameClock.start();
     setGameState("playing");
+
+    countdownText.classList.remove("countdown-fadein");
+    countdownText.classList.remove("countdown-fadeout");
   } else {
     throw new Error("countdown elements not found");
   }
