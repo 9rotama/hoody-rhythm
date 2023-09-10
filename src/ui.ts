@@ -1,6 +1,7 @@
 import { charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { judgeNote } from "./judge";
+import { retry } from "./result";
 
 const scoreText = document.getElementById("score-text");
 const buttonContainer = document.getElementById("button-container");
@@ -74,6 +75,9 @@ export const initUi = () => {
   }
 
   if (retryButton) {
+    retryButton.addEventListener("click", () => {
+      retry();
+    });
     retryButton.classList.add("is-hidden");
   } else {
     throw new Error("retry button elements not found");
@@ -125,6 +129,18 @@ export const makeAppearResultUi = () => {
     retryButton.classList.remove("is-hidden");
     retryButton.classList.remove("bottom-ui-hide");
     retryButton.classList.add("bottom-ui-appear");
+  } else {
+    throw new Error("retryButton element not found");
+  }
+};
+
+export const makeDisappearResultUi = () => {
+  if (retryButton) {
+    retryButton.classList.remove("bottom-ui-appear");
+    retryButton.classList.add("bottom-ui-hide");
+    setTimeout(() => {
+      retryButton.classList.add("is-hidden");
+    }, 400);
   } else {
     throw new Error("retryButton element not found");
   }
