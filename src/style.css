@@ -168,6 +168,10 @@ button {
   padding: 20px 30px;
   border-radius: 50vh;
   font-weight: 600;
+
+  @media screen and (max-height: 500px) {
+    font-size: 30px;
+  }
 }
 
 .countdown-fadein {
