@@ -1,7 +1,7 @@
 import { charaPos } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { scene } from "./main";
-import { notes } from "./note";
+import { generateHitNote, notes } from "./note";
 import { incrementScore } from "./ui";
 
 export const judgeRange = { start: charaPos - 5, end: charaPos };
@@ -18,6 +18,8 @@ export const judgeNote = (pushedKey: string) => {
   const noteJudged = noteInRange[0];
   if (noteTypeKeyMaps[noteJudged.type].key === pushedKey) {
     incrementScore(1);
+    generateHitNote(scene, noteJudged);
+
     notes.splice(notes.indexOf(noteJudged), 1);
     scene.remove(noteJudged.mesh);
   } else {

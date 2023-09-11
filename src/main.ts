@@ -1,5 +1,11 @@
 import "./style.css";
-import { generateNotes, moveNotes, removeOutNotes } from "./note";
+import {
+  generateNotes,
+  moveHitNotes,
+  moveNotes,
+  removeHitNotes,
+  removeOutNotes,
+} from "./note";
 import * as THREE from "three";
 import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
@@ -75,6 +81,8 @@ const update = () => {
     generateNotes();
     moveNotes();
     removeOutNotes(scene);
+    moveHitNotes();
+    removeHitNotes();
   }
 
   renderer.render(scene, camera);
