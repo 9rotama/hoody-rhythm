@@ -180,3 +180,14 @@ export const makeDisappearRotatePhoneUi = () => {
     throw new Error("rotate phone element not found");
   }
 };
+
+export const handleRotatePhoneUi = () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  if (width / height < 16 / 10) {
+    makeAppearRotatePhoneUi();
+  } else {
+    makeDisappearRotatePhoneUi();
+  }
+};
