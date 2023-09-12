@@ -15,8 +15,6 @@ import {
   handleRotatePhoneUi,
   initUi,
   makeAppearPlayingUi,
-  makeAppearRotatePhoneUi,
-  makeDisappearRotatePhoneUi,
   resetScore,
   setScoreText,
 } from "./ui";
