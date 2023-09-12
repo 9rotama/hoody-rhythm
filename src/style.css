@@ -1,13 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,900;1,300;1,600;1,900&display=swap");
+
 :root {
   --button-height: 8px;
 }
 
 body {
+  overflow: clip;
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
+}
+
+button {
+  all: unset;
 }
 
 #glcanvas {
@@ -19,7 +25,6 @@ body {
 #countdown {
   width: 100vw;
   height: 100vh;
-
   position: absolute;
   display: flex;
   align-items: center;
@@ -29,9 +34,9 @@ body {
 #countdown-text {
   font-size: 100px;
   font-weight: 900;
-  background: linear-gradient(#222244, #777799);
-  -webkit-background-clip: text;
+  background: linear-gradient(#224, #779);
   background-clip: text;
+  -webkit-background-clip: text;
   text-align: center;
   color: transparent;
 }
@@ -47,13 +52,14 @@ body {
   }
 }
 
+
 #score-text {
   font-size: 120px;
   font-weight: 900;
-  margin: 0px;
-  background: linear-gradient(#c0c0e2, #6c6cb3);
-  -webkit-background-clip: text;
+  margin: 0;
+  background: linear-gradient(#224, #6c6cb3);
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
 
   @media screen and (max-height: 500px) {
@@ -61,14 +67,38 @@ body {
   }
 }
 
-#buttons {
-  position: absolute;
-  width: 100vw;
-  bottom: 10vh;
 
+#result {
+  position: absolute;
   display: flex;
-  align-items: bottom;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  width: 50vw;
+  height: 100vh;
+  background: #222244e0;
+  backdrop-filter: blur(10px);
+  z-index: 9999999;
+}
+
+#result-score-prefix {
+  font-size: 10vh;
+  margin: 0;
+  color: rgba(200 200 255 / 50%);
+}
+
+#result-score-text {
+  font-size: 35vh;
+  font-weight: 900;
+  margin: 0;
+  background: rgba(200 200 255 / 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+#button-container {
+  align-items: bottom;
   gap: 20px;
 
   @media screen and (max-height: 500px) {
@@ -77,13 +107,12 @@ body {
 }
 
 .button {
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   width: 100px;
   height: 100px;
   font-size: 60px;
-
   font-weight: 900;
-  background: rgb(63, 63, 63);
+  background: rgb(63 63 63);
   border-radius: 50%;
   border: none;
   color: white;
@@ -93,6 +122,12 @@ body {
     height: 80px;
     font-size: 50px;
   }
+}
+
+.is-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #button-red {
@@ -135,58 +170,191 @@ body {
   transform: translateY(var(--button-height));
 }
 
+#fullscreen-switch {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: white;
+  background: #1e1e36dd;
+  border: none;
+}
+
+.bottom-container {
+  position: absolute;
+  width: 100vw;
+  bottom: 10vh;
+}
+
+#retry-button {
+  position: absolute;
+  bottom: 0;
+  width: 50vw;
+  text-align: center;
+  background: #224;
+  font-size: 50px;
+  color: white;
+  padding: 5vh 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition-duration: 100ms;
+
+  @media screen and (max-height: 500px) {
+    padding: 5vh 0;
+    font-size: 30px;
+  }
+}
+
+#retry-button:hover {
+  background: white;
+  color: #224;
+}
+
+#rotate-phone {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #22224490;
+  color:white;
+  z-index: 99999999;
+}
+
+#rotate-phone-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh
+}
+
+#rotate-phone span {
+  font-size: 100px;
+}
+
+#rotate-phone p {
+  font-size: 30px
+}
+
 .countdown-fadein {
-  animation: fadein 0.2s;
+  animation: countdown-fadein 0.2s;
 }
 
 .countdown-fadeout {
-  animation: fadeout 0.2s;
+  animation: countdown-fadeout 0.2s;
 }
 
-.ui-up {
-  animation: ui-up 0.2s;
+.top-ui-appear {
+  animation: top-ui-appear 0.4s;
 }
 
-.ui-down {
-  animation: ui-down 0.2s;
+.bottom-ui-appear {
+  animation: bottom-ui-appear 0.4s;
 }
 
-.is-transparent {
+.top-ui-hide {
+  animation: top-ui-hide 0.4s;
+}
+
+.bottom-ui-hide {
+  animation: bottom-ui-hide 0.4s;
+}
+
+.result-ui-appear {
+  animation: result-ui-appear 0.4s;
+}
+
+.result-ui-hide {
+  animation: result-ui-hide 0.4s;
+}
+
+.is-hidden {
+  display: none !important;
   opacity: 0;
+}
+
+.is-flex-center {
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes countdown-fadein {
   from {
-    opacity: 0%;
+    opacity: 0;
   }
+
   to {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
 @keyframes countdown-fadeout {
   from {
-    opacity: 100%;
+    opacity: 1;
   }
+
   to {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
-@keyframes ui-up {
-  from {
-    transform: translateY(200px);
-  }
-  to {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes ui-down {
+@keyframes top-ui-appear {
   from {
     transform: translateY(-200px);
   }
+
   to {
-    transform: translateY(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes bottom-ui-appear {
+  from {
+    transform: translateY(200px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes top-ui-hide {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-200px);
+  }
+}
+
+@keyframes bottom-ui-hide {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(200px);
+  }
+}
+
+@keyframes result-ui-appear {
+  from {
+    transform: translateX(-50vw);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes result-ui-hide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50vw);
   }
 }

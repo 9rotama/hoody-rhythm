@@ -1,28 +1,59 @@
 import "./style.css";
-import { generateNotes, moveNotes, removeNotes } from "./note";
+import {
+  generateNotes,
+  moveHitNotes,
+  moveNotes,
+  removeHitNotes,
+  removeOutNotes,
+} from "./note";
 import * as THREE from "three";
 import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
-import { initUi, makeAppearUi, setScore } from "./ui";
+import {
+  initUi,
+  makeAppearPlayingUi,
+  makeAppearRotatePhoneUi,
+  makeDisappearRotatePhoneUi,
+  resetScore,
+  setScoreText,
+} from "./ui";
+import { judgeNote } from "./judge";
+
+type GameState = "ready" | "playing" | "result";
+
+let gameState: GameState = "ready";
+
+export const getGameState = () => {
+  return gameState;
+};
+
+export const setGameState = (state: GameState) => {
+  gameState = state;
+};
 
 export const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
+export const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
-camera.position.z = 10;
+export const cameraPosNormal = new THREE.Vector3(0, 0, 10);
+camera.position.x = cameraPosNormal.x;
+camera.position.y = cameraPosNormal.y;
+camera.position.z = cameraPosNormal.z;
 
 export const rootClock = new THREE.Clock();
 
 export const gameClock = new THREE.Clock(false);
 
 initUi();
-setScore(0);
-makeAppearUi();
+setScoreText(0);
+resetScore();
+
+makeAppearPlayingUi();
 
 countDown();
 
@@ -45,6 +76,7 @@ const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
   if (keyMaps.includes(ev.key)) {
     charaSwing(ev.key);
+    judgeNote(ev.key);
   }
 };
 
@@ -52,9 +84,14 @@ document.onkeydown = onkeydown;
 
 const update = () => {
   requestAnimationFrame(update);
-  generateNotes();
-  moveNotes();
-  removeNotes(scene);
+  if (gameState === "playing") {
+    generateNotes();
+    moveNotes();
+    removeOutNotes(scene);
+    moveHitNotes();
+    removeHitNotes();
+  }
+
   renderer.render(scene, camera);
 };
 update();
@@ -70,5 +107,11 @@ const onResize = () => {
   // カメラのアスペクト比を正す
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
+
+  if (width / height < 16 / 10) {
+    makeAppearRotatePhoneUi();
+  } else {
+    makeDisappearRotatePhoneUi();
+  }
 };
 window.addEventListener("resize", onResize);

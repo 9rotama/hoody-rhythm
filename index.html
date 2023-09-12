@@ -11,11 +11,34 @@
       <div id="score">
         <p id="score-text"></p>
       </div>
+
       <div id="countdown">
         <p id="countdown-text"></p>
       </div>
-      <div id="buttons"></div>
+
+      <div id="result">
+        <p id="result-score-prefix">SCORE</p>
+        <p id="result-score-text"></p>
+        <button id="retry-button">Retry!</button>
+      </div>
+      <div class="bottom-container is-flex-center" id="button-container"></div>
+
+      <button class="is-center" id="fullscreen-switch">
+        <span class="material-icons"> fullscreen </span>
+      </button>
+      <div id="rotate-phone">
+        <div id="rotate-phone-layout">
+          <span class="material-icons" id="rotate-phone-icon">
+            screen_rotation_alt
+          </span>
+          <p id="rotate-phone-text">rotate your phone!</p>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </body>
 </html>
