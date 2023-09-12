@@ -12,10 +12,9 @@ import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
 import {
+  handleRotatePhoneUi,
   initUi,
   makeAppearPlayingUi,
-  makeAppearRotatePhoneUi,
-  makeDisappearRotatePhoneUi,
   resetScore,
   setScoreText,
 } from "./ui";
@@ -49,6 +48,7 @@ export const rootClock = new THREE.Clock();
 
 export const gameClock = new THREE.Clock(false);
 
+handleRotatePhoneUi();
 initUi();
 setScoreText(0);
 resetScore();
@@ -108,10 +108,8 @@ const onResize = () => {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
 
-  if (width / height < 16 / 10) {
-    makeAppearRotatePhoneUi();
-  } else {
-    makeDisappearRotatePhoneUi();
-  }
+  console.log(width, height);
+  handleRotatePhoneUi();
 };
+
 window.addEventListener("resize", onResize);
