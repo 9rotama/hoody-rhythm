@@ -11,7 +11,14 @@ import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
 import { addLetterBox } from "./letterbox";
-import { initUi, makeAppearPlayingUi, resetScore, setScoreText } from "./ui";
+import {
+  initUi,
+  makeAppearPlayingUi,
+  makeAppearRotatePhoneUi,
+  makeDisappearRotatePhoneUi,
+  resetScore,
+  setScoreText,
+} from "./ui";
 import { judgeNote } from "./judge";
 
 type GameState = "ready" | "playing" | "result";
@@ -100,5 +107,11 @@ const onResize = () => {
   // カメラのアスペクト比を正す
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
+
+  if (width / height < 16 / 10) {
+    makeAppearRotatePhoneUi();
+  } else {
+    makeDisappearRotatePhoneUi();
+  }
 };
 window.addEventListener("resize", onResize);

@@ -9,6 +9,7 @@ const fullscreenSwitch = document.getElementById("fullscreen-switch");
 const result = document.getElementById("result");
 const resultScoreText = document.getElementById("result-score-text");
 const retryButton = document.getElementById("retry-button");
+const rotatePhone = document.getElementById("rotate-phone");
 
 let isFullscreen = false;
 
@@ -161,5 +162,21 @@ export const makeDisappearResultUi = () => {
     }, 400);
   } else {
     throw new Error("result element not found");
+  }
+};
+
+export const makeAppearRotatePhoneUi = () => {
+  if (rotatePhone) {
+    rotatePhone.classList.remove("is-hidden");
+  } else {
+    throw new Error("rotate phone element not found");
+  }
+};
+
+export const makeDisappearRotatePhoneUi = () => {
+  if (rotatePhone) {
+    rotatePhone.classList.add("is-hidden");
+  } else {
+    throw new Error("rotate phone element not found");
   }
 };
