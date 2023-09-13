@@ -19,7 +19,6 @@ export const quakeCameraWhenHit = () => {
       cameraPosNormal.y,
       cameraPosNormal.z
     );
-    console.log("aa");
   } else {
     camera.position.set(
       cameraPosNormal.x,

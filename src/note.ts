@@ -134,7 +134,6 @@ export const removeHitNotes = () => {
     if (hitNoteLifetime < gameClock.getElapsedTime() - note.hitTime) {
       scene.remove(note.mesh);
       hitNotes.splice(i, 1);
-      console.log("remove");
     }
   });
 };

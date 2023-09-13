@@ -2,13 +2,18 @@ import { setLastHitTime } from "./camera";
 import { charaPos } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { gameClock, scene } from "./main";
-import { generateHitNote, notes } from "./note";
+import { generateHitNote, notes, removeAllNotes } from "./note";
+import { result } from "./result";
 import { incrementScore } from "./ui";
 
 export const judgeRange = { start: charaPos - 5, end: charaPos };
 
 const isInJudgeRange = (pos: number) => {
-  return judgeRange.start <= pos && pos <= judgeRange.end;
+  const time = gameClock.getElapsedTime();
+  const expandJudgeRangeByTime = time * 0.005;
+  return (
+    judgeRange.start <= pos && pos <= judgeRange.end + expandJudgeRangeByTime
+  );
 };
 
 export const judgeNote = (pushedKey: string) => {
@@ -25,6 +30,7 @@ export const judgeNote = (pushedKey: string) => {
     notes.splice(notes.indexOf(noteJudged), 1);
     scene.remove(noteJudged.mesh);
   } else {
-    // ライフを減らす処理
+    result();
+    removeAllNotes(scene);
   }
 };

@@ -123,7 +123,6 @@ const onResize = () => {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
 
-  console.log(width, height);
   handleRotatePhoneUi();
 };
 
