@@ -7,7 +7,7 @@ export const charaPos = 9.5;
 const geometry = new THREE.PlaneGeometry(5, 5);
 const defaultMaterial = new THREE.MeshPhongMaterial();
 const spritePlane = new THREE.Mesh(geometry, defaultMaterial);
-
+spritePlane.castShadow = true;
 let spriteChangeStack = 0;
 
 export const addChara = () => {

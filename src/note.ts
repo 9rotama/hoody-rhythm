@@ -58,6 +58,7 @@ export const generateNotes = () => {
       color: noteTypeKeyMaps[colorIdx].noteColor,
     });
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
     mesh.position.x = generatePos;
 
     scene.add(mesh);
@@ -99,6 +100,7 @@ export const generateHitNote = (scene: THREE.Scene, targetNote: Note) => {
   mesh.position.x = targetNote.mesh.position.x;
   mesh.position.y = targetNote.mesh.position.y;
   mesh.position.z = targetNote.mesh.position.z;
+  mesh.castShadow = true;
 
   scene.add(mesh);
 

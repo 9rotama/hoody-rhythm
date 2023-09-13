@@ -19,6 +19,7 @@ import {
   setScoreText,
 } from "./ui";
 import { judgeNote } from "./judge";
+import { initStage } from "./stage";
 
 type GameState = "ready" | "playing" | "result";
 
@@ -62,15 +63,27 @@ scene.background = new THREE.Color("#ddddff");
 const hemiLight = new THREE.HemisphereLight("#000000", "#ddddff", 5.0);
 scene.add(hemiLight);
 const dirLight = new THREE.DirectionalLight("#ddddff", 10.0);
+dirLight.castShadow = true;
 scene.add(dirLight);
+
+dirLight.shadow.camera.left = -20;
+dirLight.shadow.camera.right = 20;
+dirLight.shadow.camera.bottom = -20;
+dirLight.shadow.camera.top = 20;
+dirLight.shadow.mapSize.width = 512;
+dirLight.shadow.mapSize.height = 512;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+
 document.getElementById("app")?.appendChild(renderer.domElement);
 
 addChara();
 
 addLetterBox();
+
+initStage();
 
 const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
