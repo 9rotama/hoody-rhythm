@@ -12,6 +12,7 @@ import { charaPos } from "./chara";
 import { clamp } from "three/src/math/MathUtils.js";
 import { easeOutSine } from "./utils";
 import { countDown } from "./countdown";
+import { setLastHitTime } from "./camera";
 
 let resultShowTime = 0;
 let retryClickTime = 0;
@@ -42,6 +43,7 @@ export const retry = () => {
   setScoreText(0);
   resetScore();
   countDown();
+  setLastHitTime(0);
 };
 
 const cameraMoveResult = () => {

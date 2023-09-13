@@ -1,6 +1,7 @@
+import { setLastHitTime } from "./camera";
 import { charaPos } from "./chara";
 import { noteTypeKeyMaps } from "./const";
-import { scene } from "./main";
+import { gameClock, scene } from "./main";
 import { generateHitNote, notes } from "./note";
 import { incrementScore } from "./ui";
 
@@ -19,6 +20,7 @@ export const judgeNote = (pushedKey: string) => {
   if (noteTypeKeyMaps[noteJudged.type].key === pushedKey) {
     incrementScore(1);
     generateHitNote(scene, noteJudged);
+    setLastHitTime(gameClock.getElapsedTime());
 
     notes.splice(notes.indexOf(noteJudged), 1);
     scene.remove(noteJudged.mesh);

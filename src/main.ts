@@ -20,6 +20,7 @@ import {
 } from "./ui";
 import { judgeNote } from "./judge";
 import { initStage } from "./stage";
+import { quakeCameraWhenHit } from "./camera";
 
 type GameState = "ready" | "playing" | "result";
 
@@ -103,6 +104,7 @@ const update = () => {
     removeOutNotes(scene);
     moveHitNotes();
     removeHitNotes();
+    quakeCameraWhenHit();
   }
 
   renderer.render(scene, camera);

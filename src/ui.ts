@@ -17,7 +17,6 @@ let score = 0;
 
 const switchFullscreen = () => {
   if (fullscreenSwitch) {
-    console.log(isFullscreen);
     if (isFullscreen) {
       document.exitFullscreen();
       isFullscreen = false;
