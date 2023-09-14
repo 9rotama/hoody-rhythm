@@ -18,7 +18,7 @@ let resultShowTime = 0;
 let retryClickTime = 0;
 const cameraMoveTime = 0.8;
 
-const cameraPosResult = new THREE.Vector3(charaPos - 4, 0, 6);
+const cameraPosResult = new THREE.Vector3(charaPos.x - 4, 0, 6);
 
 export const result = () => {
   makeDisappearPlayingUi();

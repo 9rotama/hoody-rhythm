@@ -1,7 +1,6 @@
 import { rootClock, scene } from "./main";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { update } from "three/examples/jsm/libs/tween.module.js";
 
 const floorGeometry = new THREE.PlaneGeometry(100, 100, 32, 32);
 const glassFloorMaterial = new THREE.MeshPhongMaterial({
@@ -33,7 +32,7 @@ const FolderMaterial = new THREE.MeshPhongMaterial({
   color: "#FFDE9E",
   side: THREE.DoubleSide,
 });
-const folderPos = new THREE.Vector3(-10, 0, -0.2);
+export const folderPos = new THREE.Vector3(-10.5, 0, -0.2);
 
 export const initStage = () => {
   scene.add(glassFloor);

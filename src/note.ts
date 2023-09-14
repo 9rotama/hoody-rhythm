@@ -4,10 +4,13 @@ import { gameClock, getGameState, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 import { result } from "./result";
 import { judgeRange } from "./judge";
+import { folderPos } from "./stage";
+import { charaPos } from "./chara";
 
 type Note = {
   id: number;
   type: number;
+  pos: number; //出現時0, キャラに重なったとき1
   mesh: THREE.Mesh;
 };
 
@@ -23,11 +26,11 @@ export const notes: Note[] = [];
 
 export const hitNotes: HitNote[] = [];
 
-const initSpeed = 0.03;
+const initSpeed = 0.002;
 const initSpawnSpan = 4; //s
-const increaseSpeedByTime = 0.0035;
+const increaseSpeedByTime = 0.0002;
 
-const generatePos = -20;
+const generatePos = new THREE.Vector3(folderPos.x, folderPos.y, folderPos.z);
 
 let elapsedTimeFromGenerate = 0;
 let noteId = 0;
@@ -59,21 +62,43 @@ export const generateNotes = () => {
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
-    mesh.position.x = generatePos;
+    mesh.position.x = generatePos.x;
 
     scene.add(mesh);
 
-    notes.push({ id: ++noteId, type: colorIdx, mesh: mesh });
+    notes.push({ id: ++noteId, type: colorIdx, pos: 0, mesh: mesh });
   }
+};
+const hitPos = new THREE.Vector3(charaPos.x - 2, charaPos.y, charaPos.z);
+const moveAngle = Math.PI / 3;
+const startAngle = Math.PI / 2 - moveAngle / 2;
+const endAngle = Math.PI / 2 + moveAngle / 2;
+const radius =
+  (hitPos.x - folderPos.x) / (Math.cos(endAngle) - Math.cos(startAngle));
+
+const center = new THREE.Vector3(
+  folderPos.x - Math.cos(startAngle) * radius,
+  folderPos.y - Math.sin(endAngle) * radius,
+  0
+);
+
+export const calcNotePos = (pos: number) => {
+  const x = Math.cos(startAngle + pos * moveAngle) * radius + center.x;
+  const y = -(Math.sin(startAngle + pos * moveAngle) * radius + center.y);
+
+  return new THREE.Vector3(x, y, 0);
 };
 
 export const moveNotes = () => {
   const speed = getSpeedRate() * initSpeed;
   notes.forEach((note) => {
-    note.mesh.position.x += speed;
-    note.mesh.rotation.x += speed / 10;
-    note.mesh.rotation.y += speed / 10;
-    note.mesh.rotation.z += speed / 10;
+    note.pos += speed;
+
+    const pos = calcNotePos(note.pos);
+    note.mesh.position.set(pos.x, pos.y, pos.z);
+    note.mesh.rotation.x += speed;
+    note.mesh.rotation.y += speed;
+    note.mesh.rotation.z += speed;
   });
 };
 

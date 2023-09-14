@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 
-export const charaPos = 9.5;
+export const charaPos = new THREE.Vector3(9.5, 0, 0);
 
 const geometry = new THREE.PlaneGeometry(5, 5);
 const defaultMaterial = new THREE.MeshPhongMaterial();
@@ -11,7 +11,7 @@ spritePlane.castShadow = true;
 let spriteChangeStack = 0;
 
 export const addChara = () => {
-  spritePlane.position.x = charaPos;
+  spritePlane.position.set(charaPos.x, charaPos.y, charaPos.z);
   scene.add(spritePlane);
 };
 

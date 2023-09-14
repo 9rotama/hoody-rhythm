@@ -69,8 +69,8 @@ scene.add(dirLight);
 
 dirLight.shadow.camera.left = -20;
 dirLight.shadow.camera.right = 20;
-dirLight.shadow.camera.bottom = -20;
-dirLight.shadow.camera.top = 20;
+dirLight.shadow.camera.bottom = -40;
+dirLight.shadow.camera.top = 40;
 dirLight.shadow.mapSize.width = 512;
 dirLight.shadow.mapSize.height = 512;
 

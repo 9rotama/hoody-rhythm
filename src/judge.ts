@@ -6,7 +6,10 @@ import { generateHitNote, notes, removeAllNotes } from "./note";
 import { result } from "./result";
 import { incrementScore } from "./ui";
 
-export const judgeRange = { start: charaPos - 5, end: charaPos };
+export const judgeRange: { start: number; end: number } = {
+  start: charaPos.x - 5,
+  end: charaPos.x,
+};
 
 const isInJudgeRange = (pos: number) => {
   const time = gameClock.getElapsedTime();
