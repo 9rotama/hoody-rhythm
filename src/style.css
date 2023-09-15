@@ -269,6 +269,10 @@ button {
   animation: result-ui-hide 0.4s;
 }
 
+.quake-score {
+  animation: quake-score 0.1s;
+}
+
 .is-hidden {
   display: none !important;
   opacity: 0;
@@ -356,5 +360,15 @@ button {
 
   to {
     transform: translateX(-50vw);
+  }
+}
+
+@keyframes quake-score {
+  from {
+    transform: translateY(-20px);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }

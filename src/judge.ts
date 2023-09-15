@@ -4,7 +4,7 @@ import { noteTypeKeyMaps } from "./const";
 import { gameClock, scene } from "./main";
 import { generateHitNote, notes, removeAllNotes } from "./note";
 import { result } from "./result";
-import { incrementScore } from "./ui";
+import { incrementScore, quakeScoreText } from "./ui";
 
 export const judgeRange: { start: number; end: number } = {
   start: charaPos.x - 5,
@@ -29,6 +29,7 @@ export const judgeNote = (pushedKey: string) => {
     incrementScore(1);
     generateHitNote(scene, noteJudged);
     setLastHitTime(gameClock.getElapsedTime());
+    quakeScoreText();
 
     notes.splice(notes.indexOf(noteJudged), 1);
     scene.remove(noteJudged.mesh);

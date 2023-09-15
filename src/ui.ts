@@ -99,8 +99,10 @@ export const initUi = () => {
 export const makeAppearPlayingUi = () => {
   if (scoreText) {
     scoreText.classList.remove("is-hidden");
-    scoreText.classList.remove("top-ui-hide");
     scoreText.classList.add("top-ui-appear");
+    setTimeout(() => {
+      scoreText.classList.remove("top-ui-appear");
+    }, 400);
   } else {
     throw new Error("score elements not found");
   }
@@ -109,6 +111,7 @@ export const makeAppearPlayingUi = () => {
     buttonContainer.classList.remove("is-hidden");
     buttonContainer.classList.remove("bottom-ui-hide");
     buttonContainer.classList.add("bottom-ui-appear");
+    setTimeout(() => {}, 400);
   } else {
     throw new Error("button elements not found");
   }
@@ -116,10 +119,10 @@ export const makeAppearPlayingUi = () => {
 
 export const makeDisappearPlayingUi = () => {
   if (scoreText) {
-    scoreText.classList.remove("top-ui-appear");
     scoreText.classList.add("top-ui-hide");
     setTimeout(() => {
       scoreText.classList.add("is-hidden");
+      scoreText.classList.remove("top-ui-hide");
     }, 400);
   } else {
     throw new Error("score elements not found");
@@ -188,5 +191,16 @@ export const handleRotatePhoneUi = () => {
     makeAppearRotatePhoneUi();
   } else {
     makeDisappearRotatePhoneUi();
+  }
+};
+
+export const quakeScoreText = () => {
+  if (scoreText) {
+    scoreText.classList.add("quake-score");
+    setTimeout(() => {
+      scoreText.classList.remove("quake-score");
+    }, 100);
+  } else {
+    throw new Error("score element not found");
   }
 };
