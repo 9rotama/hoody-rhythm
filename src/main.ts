@@ -67,12 +67,13 @@ const dirLight = new THREE.DirectionalLight("#ddddff", 10.0);
 dirLight.castShadow = true;
 scene.add(dirLight);
 
-dirLight.shadow.camera.left = -20;
-dirLight.shadow.camera.right = 20;
-dirLight.shadow.camera.bottom = -40;
-dirLight.shadow.camera.top = 40;
+dirLight.shadow.camera.left = -15;
+dirLight.shadow.camera.right = 15;
+
 dirLight.shadow.mapSize.width = 512;
 dirLight.shadow.mapSize.height = 512;
+
+dirLight.position.set(0, 5, 0);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
