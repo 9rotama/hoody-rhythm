@@ -63,7 +63,7 @@ export const initUi = () => {
       button.classList.add("is-center");
       button.id = `button-${e.name}`;
       button.textContent = e.key.toUpperCase();
-      button.addEventListener("click", () => {
+      button.addEventListener("touchstart", () => {
         charaSwing(e.key);
         judgeNote(e.key);
       });
