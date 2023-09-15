@@ -78,7 +78,12 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 
-document.getElementById("app")?.appendChild(renderer.domElement);
+const appElement = document.getElementById("app");
+if (appElement) {
+  appElement.appendChild(renderer.domElement);
+} else {
+  throw new Error("app element not found");
+}
 
 addChara();
 
