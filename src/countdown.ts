@@ -11,12 +11,13 @@ export const countDown = async () => {
     countdownText.textContent = "READY...";
     await sleep(1000);
     countdownText.textContent = "GO!!";
+    setGameState("playing");
+    gameClock.start();
+
     await sleep(800);
     countdownText.classList.add("countdown-fadeout");
     await sleep(200);
     countdownText.textContent = "";
-    gameClock.start();
-    setGameState("playing");
 
     countdownText.classList.remove("countdown-fadein");
     countdownText.classList.remove("countdown-fadeout");

@@ -28,11 +28,11 @@ export const hitNotes: HitNote[] = [];
 
 const initSpeed = 0.002;
 const initSpawnSpan = 4; //s
-const increaseSpeedByTime = 0.0002;
+const increaseSpeedByTime = 0.0004;
 
 const generatePos = new THREE.Vector3(folderPos.x, folderPos.y, folderPos.z);
 
-let elapsedTimeFromGenerate = 0;
+let elapsedTimeFromGenerate = initSpawnSpan;
 let noteId = 0;
 let flyNoteId = 0;
 
