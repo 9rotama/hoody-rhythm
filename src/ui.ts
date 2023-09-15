@@ -81,14 +81,6 @@ export const initUi = () => {
     throw new Error("fullscreen switch element not found");
   }
 
-  if (retryButton) {
-    retryButton.addEventListener("click", () => {
-      retry();
-    });
-  } else {
-    throw new Error("retry button elements not found");
-  }
-
   if (result) {
     result.classList.add("is-hidden");
   } else {
@@ -153,6 +145,14 @@ export const makeAppearResultUi = () => {
   } else {
     throw new Error("result score element not found");
   }
+
+  if (retryButton) {
+    setTimeout(() => {
+      retryButton.addEventListener("click", retry);
+    }, 1000);
+  } else {
+    throw new Error("retry button elements not found");
+  }
 };
 
 export const makeDisappearResultUi = () => {
@@ -164,6 +164,12 @@ export const makeDisappearResultUi = () => {
     }, 400);
   } else {
     throw new Error("result element not found");
+  }
+
+  if (retryButton) {
+    retryButton.removeEventListener("click", retry);
+  } else {
+    throw new Error("retry button elements not found");
   }
 };
 
