@@ -4,7 +4,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const floorGeometry = new THREE.PlaneGeometry(100, 100, 32, 32);
 const glassFloorMaterial = new THREE.MeshPhongMaterial({
-  color: 0xffffff,
+  color: 0xddddff,
   side: THREE.DoubleSide,
 });
 glassFloorMaterial.transparent = true;
@@ -22,7 +22,32 @@ glassFloor.rotation.x = 90;
 gridFloor.position.y = -2.5;
 gridFloor.rotation.x = 90;
 
-const fog = new THREE.Fog("#ddddff", 1, 40);
+const earthGeometry = new THREE.SphereGeometry(16);
+const earthMaterial = new THREE.MeshPhongMaterial({
+  color: "#555577",
+  side: THREE.DoubleSide,
+});
+const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+const earthY = -22;
+
+earth.position.y = earthY;
+
+const torusOneGeometry = new THREE.TorusGeometry(16.5, 0.1, 5, 100);
+const torusTwoGeometry = new THREE.TorusGeometry(17, 0.1, 5, 100);
+const torusThreeGeometry = new THREE.TorusGeometry(17.5, 0.1, 5, 100);
+const torusMaterial = new THREE.MeshPhongMaterial({
+  color: "#aaaacc",
+  side: THREE.DoubleSide,
+});
+const torusOne = new THREE.Mesh(torusOneGeometry, torusMaterial);
+const torusTwo = new THREE.Mesh(torusTwoGeometry, torusMaterial);
+const torusThree = new THREE.Mesh(torusThreeGeometry, torusMaterial);
+
+torusOne.position.y = earthY;
+torusTwo.position.y = earthY;
+torusThree.position.y = earthY;
+
+const fog = new THREE.Fog("#ddddff", 1, 20);
 
 const loader = new GLTFLoader();
 
@@ -37,6 +62,8 @@ export const folderPos = new THREE.Vector3(-10.5, 0, -0.2);
 export const initStage = () => {
   scene.add(glassFloor);
   scene.add(gridFloor);
+  scene.add(earth);
+  scene.add(torusOne, torusTwo, torusThree);
   scene.fog = fog;
 
   loader.load(
@@ -66,6 +93,7 @@ export const initStage = () => {
 export const updateStage = () => {
   requestAnimationFrame(updateStage);
   moveFolder();
+  moveToruses();
 };
 
 export const moveFolder = () => {
@@ -76,4 +104,11 @@ export const moveFolder = () => {
     Math.sin(t) * 0.2 + 5,
     Math.sin(t * 0.3) * 0.2
   );
+};
+
+export const moveToruses = () => {
+  const t = rootClock.getElapsedTime();
+  torusOne.rotation.set(t * 0.1, t * 0.2, t * 0.1);
+  torusTwo.rotation.set(t * 0.2, t * 0.1, t * 0.2);
+  torusThree.rotation.set(t * 0.1, t * 0.1, t * 0.2);
 };
