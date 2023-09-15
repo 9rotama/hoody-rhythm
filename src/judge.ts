@@ -13,7 +13,8 @@ export const judgeRange: { start: number; end: number } = {
 
 const isInJudgeRange = (pos: number) => {
   const time = gameClock.getElapsedTime();
-  const expandJudgeRangeByTime = time * 0.005;
+  const expandJudgeRangeByTime = time * 0.013;
+  console.log(judgeRange.end + expandJudgeRangeByTime);
   return (
     judgeRange.start <= pos && pos <= judgeRange.end + expandJudgeRangeByTime
   );
