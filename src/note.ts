@@ -1,11 +1,12 @@
 import * as THREE from "three";
-import { getRandInt } from "./utils";
+import { easeOutSine, getRandInt } from "./utils";
 import { gameClock, getGameState, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 import { result } from "./result";
 import { judgeRange } from "./judge";
 import { folderPos } from "./stage";
 import { charaPos } from "./chara";
+import { clamp } from "three/src/math/MathUtils.js";
 
 type Note = {
   id: number;
@@ -39,6 +40,8 @@ let flyNoteId = 0;
 const hitNoteFlySpeed = 1;
 const hitNoteRotSpeed = 0.2;
 const hitNoteLifetime = 1;
+
+const scaleChangeDur = 0.3;
 
 const getSpeedRate = () => {
   // 現在の時間を加味してスピードを計算し、初期のスピードより何倍早いかを返す
@@ -95,10 +98,13 @@ export const moveNotes = () => {
     note.pos += speed;
 
     const pos = calcNotePos(note.pos);
+
+    const scale = easeOutSine(clamp(note.pos / scaleChangeDur, 0, 1));
     note.mesh.position.set(pos.x, pos.y, pos.z);
     note.mesh.rotation.x += speed;
     note.mesh.rotation.y += speed;
     note.mesh.rotation.z += speed;
+    note.mesh.scale.set(scale, scale, scale);
   });
 };
 
