@@ -10,7 +10,6 @@ import * as THREE from "three";
 import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
-import { addLetterBox } from "./letterbox";
 import {
   handleRotatePhoneUi,
   initUi,
@@ -87,8 +86,6 @@ if (appElement) {
 }
 
 addChara();
-
-addLetterBox();
 
 initStage();
 
