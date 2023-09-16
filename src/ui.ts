@@ -1,6 +1,7 @@
 import { charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { judgeNote } from "./judge";
+import { getGameState } from "./main";
 import { retry } from "./result";
 
 const scoreText = document.getElementById("score-text");
@@ -17,7 +18,6 @@ let score = 0;
 
 const switchFullscreen = () => {
   if (fullscreenSwitch) {
-    console.log(isFullscreen);
     if (isFullscreen) {
       document.exitFullscreen();
       isFullscreen = false;
@@ -64,8 +64,9 @@ export const initUi = () => {
       button.classList.add("is-center");
       button.id = `button-${e.name}`;
       button.textContent = e.key.toUpperCase();
-      button.addEventListener("click", () => {
-        charaSwing(e.key);
+      button.addEventListener("touchstart", () => {
+        if (getGameState() !== "playing") return;
+        charaSwing();
         judgeNote(e.key);
       });
       buttonContainer.appendChild(button);
@@ -82,14 +83,6 @@ export const initUi = () => {
     throw new Error("fullscreen switch element not found");
   }
 
-  if (retryButton) {
-    retryButton.addEventListener("click", () => {
-      retry();
-    });
-  } else {
-    throw new Error("retry button elements not found");
-  }
-
   if (result) {
     result.classList.add("is-hidden");
   } else {
@@ -100,8 +93,10 @@ export const initUi = () => {
 export const makeAppearPlayingUi = () => {
   if (scoreText) {
     scoreText.classList.remove("is-hidden");
-    scoreText.classList.remove("top-ui-hide");
     scoreText.classList.add("top-ui-appear");
+    setTimeout(() => {
+      scoreText.classList.remove("top-ui-appear");
+    }, 400);
   } else {
     throw new Error("score elements not found");
   }
@@ -110,6 +105,7 @@ export const makeAppearPlayingUi = () => {
     buttonContainer.classList.remove("is-hidden");
     buttonContainer.classList.remove("bottom-ui-hide");
     buttonContainer.classList.add("bottom-ui-appear");
+    setTimeout(() => {}, 400);
   } else {
     throw new Error("button elements not found");
   }
@@ -117,10 +113,10 @@ export const makeAppearPlayingUi = () => {
 
 export const makeDisappearPlayingUi = () => {
   if (scoreText) {
-    scoreText.classList.remove("top-ui-appear");
     scoreText.classList.add("top-ui-hide");
     setTimeout(() => {
       scoreText.classList.add("is-hidden");
+      scoreText.classList.remove("top-ui-hide");
     }, 400);
   } else {
     throw new Error("score elements not found");
@@ -151,6 +147,14 @@ export const makeAppearResultUi = () => {
   } else {
     throw new Error("result score element not found");
   }
+
+  if (retryButton) {
+    setTimeout(() => {
+      retryButton.addEventListener("click", retry);
+    }, 1000);
+  } else {
+    throw new Error("retry button elements not found");
+  }
 };
 
 export const makeDisappearResultUi = () => {
@@ -162,6 +166,12 @@ export const makeDisappearResultUi = () => {
     }, 400);
   } else {
     throw new Error("result element not found");
+  }
+
+  if (retryButton) {
+    retryButton.removeEventListener("click", retry);
+  } else {
+    throw new Error("retry button elements not found");
   }
 };
 
@@ -189,5 +199,16 @@ export const handleRotatePhoneUi = () => {
     makeAppearRotatePhoneUi();
   } else {
     makeDisappearRotatePhoneUi();
+  }
+};
+
+export const quakeScoreText = () => {
+  if (scoreText) {
+    scoreText.classList.add("quake-score");
+    setTimeout(() => {
+      scoreText.classList.remove("quake-score");
+    }, 100);
+  } else {
+    throw new Error("score element not found");
   }
 };

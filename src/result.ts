@@ -8,16 +8,17 @@ import {
   resetScore,
   setScoreText,
 } from "./ui";
-import { charaPos } from "./chara";
+import { charaGameOver, charaPos, charaReset } from "./chara";
 import { clamp } from "three/src/math/MathUtils.js";
 import { easeOutSine } from "./utils";
 import { countDown } from "./countdown";
+import { setLastHitTime } from "./camera";
 
 let resultShowTime = 0;
 let retryClickTime = 0;
 const cameraMoveTime = 0.8;
 
-const cameraPosResult = new THREE.Vector3(charaPos - 4, 0, 6);
+const cameraPosResult = new THREE.Vector3(charaPos.x - 4, 0, 6);
 
 export const result = () => {
   makeDisappearPlayingUi();
@@ -27,6 +28,7 @@ export const result = () => {
   resultShowTime = rootClock.getElapsedTime();
 
   cameraMoveResult();
+  charaGameOver();
 };
 
 export const retry = () => {
@@ -42,6 +44,8 @@ export const retry = () => {
   setScoreText(0);
   resetScore();
   countDown();
+  setLastHitTime(0);
+  charaReset();
 };
 
 const cameraMoveResult = () => {

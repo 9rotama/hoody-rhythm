@@ -1,13 +1,17 @@
 import * as THREE from "three";
-import { getRandInt } from "./utils";
+import { easeOutSine, getRandInt } from "./utils";
 import { gameClock, getGameState, scene } from "./main";
 import { noteTypeKeyMaps } from "./const";
 import { result } from "./result";
 import { judgeRange } from "./judge";
+import { folderPos } from "./stage";
+import { charaPos } from "./chara";
+import { clamp } from "three/src/math/MathUtils.js";
 
 type Note = {
   id: number;
   type: number;
+  pos: number; //出現時0, キャラに重なったとき1
   mesh: THREE.Mesh;
 };
 
@@ -23,19 +27,21 @@ export const notes: Note[] = [];
 
 export const hitNotes: HitNote[] = [];
 
-const initSpeed = 0.03;
+const initSpeed = 0.002;
 const initSpawnSpan = 4; //s
-const increaseSpeedByTime = 0.0035;
+const increaseSpeedByTime = 0.0004;
 
-const generatePos = -20;
+const generatePos = new THREE.Vector3(folderPos.x, folderPos.y, folderPos.z);
 
-let elapsedTimeFromGenerate = 0;
+let elapsedTimeFromGenerate = initSpawnSpan;
 let noteId = 0;
 let flyNoteId = 0;
 
 const hitNoteFlySpeed = 1;
 const hitNoteRotSpeed = 0.2;
 const hitNoteLifetime = 1;
+
+const scaleChangeDur = 0.3;
 
 const getSpeedRate = () => {
   // 現在の時間を加味してスピードを計算し、初期のスピードより何倍早いかを返す
@@ -58,21 +64,47 @@ export const generateNotes = () => {
       color: noteTypeKeyMaps[colorIdx].noteColor,
     });
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.x = generatePos;
+    mesh.castShadow = true;
+    mesh.position.x = generatePos.x;
 
     scene.add(mesh);
 
-    notes.push({ id: ++noteId, type: colorIdx, mesh: mesh });
+    notes.push({ id: ++noteId, type: colorIdx, pos: 0, mesh: mesh });
   }
+};
+const hitPos = new THREE.Vector3(charaPos.x - 2, charaPos.y, charaPos.z);
+const moveAngle = Math.PI / 3;
+const startAngle = Math.PI / 2 - moveAngle / 2;
+const endAngle = Math.PI / 2 + moveAngle / 2;
+const radius =
+  (hitPos.x - folderPos.x) / (Math.cos(endAngle) - Math.cos(startAngle));
+
+const center = new THREE.Vector3(
+  folderPos.x - Math.cos(startAngle) * radius,
+  folderPos.y - Math.sin(endAngle) * radius,
+  0
+);
+
+export const calcNotePos = (pos: number) => {
+  const x = Math.cos(startAngle + pos * moveAngle) * radius + center.x;
+  const y = -(Math.sin(startAngle + pos * moveAngle) * radius + center.y);
+
+  return new THREE.Vector3(x, y, 0);
 };
 
 export const moveNotes = () => {
   const speed = getSpeedRate() * initSpeed;
   notes.forEach((note) => {
-    note.mesh.position.x += speed;
-    note.mesh.rotation.x += speed / 10;
-    note.mesh.rotation.y += speed / 10;
-    note.mesh.rotation.z += speed / 10;
+    note.pos += speed;
+
+    const pos = calcNotePos(note.pos);
+
+    const scale = easeOutSine(clamp(note.pos / scaleChangeDur, 0, 1));
+    note.mesh.position.set(pos.x, pos.y, pos.z);
+    note.mesh.rotation.x += speed;
+    note.mesh.rotation.y += speed;
+    note.mesh.rotation.z += speed;
+    note.mesh.scale.set(scale, scale, scale);
   });
 };
 
@@ -99,6 +131,7 @@ export const generateHitNote = (scene: THREE.Scene, targetNote: Note) => {
   mesh.position.x = targetNote.mesh.position.x;
   mesh.position.y = targetNote.mesh.position.y;
   mesh.position.z = targetNote.mesh.position.z;
+  mesh.castShadow = true;
 
   scene.add(mesh);
 
@@ -132,7 +165,6 @@ export const removeHitNotes = () => {
     if (hitNoteLifetime < gameClock.getElapsedTime() - note.hitTime) {
       scene.remove(note.mesh);
       hitNotes.splice(i, 1);
-      console.log("remove");
     }
   });
 };

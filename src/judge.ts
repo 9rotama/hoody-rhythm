@@ -1,13 +1,22 @@
+import { setLastHitTime } from "./camera";
 import { charaPos } from "./chara";
 import { noteTypeKeyMaps } from "./const";
-import { scene } from "./main";
-import { generateHitNote, notes } from "./note";
-import { incrementScore } from "./ui";
+import { gameClock, scene } from "./main";
+import { generateHitNote, notes, removeAllNotes } from "./note";
+import { result } from "./result";
+import { incrementScore, quakeScoreText } from "./ui";
 
-export const judgeRange = { start: charaPos - 5, end: charaPos };
+export const judgeRange: { start: number; end: number } = {
+  start: charaPos.x - 5,
+  end: charaPos.x,
+};
 
 const isInJudgeRange = (pos: number) => {
-  return judgeRange.start <= pos && pos <= judgeRange.end;
+  const time = gameClock.getElapsedTime();
+  const expandJudgeRangeByTime = time * 0.013;
+  return (
+    judgeRange.start <= pos && pos <= judgeRange.end + expandJudgeRangeByTime
+  );
 };
 
 export const judgeNote = (pushedKey: string) => {
@@ -19,10 +28,13 @@ export const judgeNote = (pushedKey: string) => {
   if (noteTypeKeyMaps[noteJudged.type].key === pushedKey) {
     incrementScore(1);
     generateHitNote(scene, noteJudged);
+    setLastHitTime(gameClock.getElapsedTime());
+    quakeScoreText();
 
     notes.splice(notes.indexOf(noteJudged), 1);
     scene.remove(noteJudged.mesh);
   } else {
-    // ライフを減らす処理
+    result();
+    removeAllNotes(scene);
   }
 };

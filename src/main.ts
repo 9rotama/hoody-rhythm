@@ -10,7 +10,6 @@ import * as THREE from "three";
 import { addChara, charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { countDown } from "./countdown";
-import { addLetterBox } from "./letterbox";
 import {
   handleRotatePhoneUi,
   initUi,
@@ -19,6 +18,8 @@ import {
   setScoreText,
 } from "./ui";
 import { judgeNote } from "./judge";
+import { initStage } from "./stage";
+import { quakeCameraWhenHit } from "./camera";
 
 type GameState = "ready" | "playing" | "result";
 
@@ -62,20 +63,38 @@ scene.background = new THREE.Color("#ddddff");
 const hemiLight = new THREE.HemisphereLight("#000000", "#ddddff", 5.0);
 scene.add(hemiLight);
 const dirLight = new THREE.DirectionalLight("#ddddff", 10.0);
+dirLight.castShadow = true;
 scene.add(dirLight);
+
+dirLight.shadow.camera.left = -15;
+dirLight.shadow.camera.right = 15;
+
+dirLight.shadow.mapSize.width = 512;
+dirLight.shadow.mapSize.height = 512;
+
+dirLight.position.set(0, 5, 0);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById("app")?.appendChild(renderer.domElement);
+renderer.shadowMap.enabled = true;
+
+const appElement = document.getElementById("app");
+if (appElement) {
+  appElement.appendChild(renderer.domElement);
+} else {
+  throw new Error("app element not found");
+}
 
 addChara();
 
-addLetterBox();
+initStage();
 
 const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
   if (keyMaps.includes(ev.key)) {
-    charaSwing(ev.key);
+    if (getGameState() !== "playing") return;
+
+    charaSwing();
     judgeNote(ev.key);
   }
 };
@@ -90,6 +109,7 @@ const update = () => {
     removeOutNotes(scene);
     moveHitNotes();
     removeHitNotes();
+    quakeCameraWhenHit();
   }
 
   renderer.render(scene, camera);
@@ -108,7 +128,6 @@ const onResize = () => {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
 
-  console.log(width, height);
   handleRotatePhoneUi();
 };
 
