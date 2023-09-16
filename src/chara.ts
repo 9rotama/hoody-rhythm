@@ -1,11 +1,12 @@
 import * as THREE from "three";
-import { getGameState, scene } from "./main";
+import { getGameState, rootClock, scene } from "./main";
 
 export const charaPos = new THREE.Vector3(8.5, 0.5, 0);
 
 const normalTexture = new THREE.TextureLoader().load("chara/normal.png");
 const hitTexture = new THREE.TextureLoader().load("chara/hit.png");
 const overTexture = new THREE.TextureLoader().load("chara/over.png");
+const over2Texture = new THREE.TextureLoader().load("chara/over2.png");
 
 const spriteMaterialColor = "#ffffff";
 const normalMaterial = new THREE.SpriteMaterial({
@@ -27,6 +28,13 @@ const hitMaterial = new THREE.SpriteMaterial({
 });
 const overMaterial = new THREE.SpriteMaterial({
   map: overTexture,
+  color: spriteMaterialColor,
+  transparent: true,
+  alphaTest: 0.5,
+  fog: false,
+});
+const over2Material = new THREE.SpriteMaterial({
+  map: over2Texture,
   color: spriteMaterialColor,
   transparent: true,
   alphaTest: 0.5,
@@ -57,8 +65,32 @@ export const charaSwing = () => {
   }, 300);
 };
 
+const gameOverSpriteChangeTime = 0.04;
+let gameOverSpriteChangeClock = 0;
+let isGameOverSpriteTwo = false;
+
 export const charaGameOver = () => {
   sprite.material = overMaterial;
+
+  charaGameOverSpriteChange();
+};
+
+const charaGameOverSpriteChange = () => {
+  const animation = requestAnimationFrame(charaGameOverSpriteChange);
+
+  gameOverSpriteChangeClock += rootClock.getDelta();
+  if (gameOverSpriteChangeClock > gameOverSpriteChangeTime) {
+    gameOverSpriteChangeClock = 0;
+    if (isGameOverSpriteTwo) {
+      sprite.material = overMaterial;
+      isGameOverSpriteTwo = false;
+    } else {
+      sprite.material = over2Material;
+      isGameOverSpriteTwo = true;
+    }
+  }
+
+  if (getGameState() !== "result") cancelAnimationFrame(animation);
 };
 
 export const charaReset = () => {
