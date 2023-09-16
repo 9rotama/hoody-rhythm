@@ -1,6 +1,7 @@
 import { charaSwing } from "./chara";
 import { noteTypeKeyMaps } from "./const";
 import { judgeNote } from "./judge";
+import { getGameState } from "./main";
 import { retry } from "./result";
 
 const scoreText = document.getElementById("score-text");
@@ -64,7 +65,8 @@ export const initUi = () => {
       button.id = `button-${e.name}`;
       button.textContent = e.key.toUpperCase();
       button.addEventListener("touchstart", () => {
-        charaSwing(e.key);
+        if (getGameState() !== "playing") return;
+        charaSwing();
         judgeNote(e.key);
       });
       buttonContainer.appendChild(button);

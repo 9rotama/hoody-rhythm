@@ -92,7 +92,9 @@ initStage();
 const keyMaps = noteTypeKeyMaps.map((e) => e.key);
 const onkeydown = (ev: KeyboardEvent) => {
   if (keyMaps.includes(ev.key)) {
-    charaSwing(ev.key);
+    if (getGameState() !== "playing") return;
+
+    charaSwing();
     judgeNote(ev.key);
   }
 };

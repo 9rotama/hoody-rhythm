@@ -8,7 +8,7 @@ import {
   resetScore,
   setScoreText,
 } from "./ui";
-import { charaPos } from "./chara";
+import { charaGameOver, charaPos, charaReset } from "./chara";
 import { clamp } from "three/src/math/MathUtils.js";
 import { easeOutSine } from "./utils";
 import { countDown } from "./countdown";
@@ -28,6 +28,7 @@ export const result = () => {
   resultShowTime = rootClock.getElapsedTime();
 
   cameraMoveResult();
+  charaGameOver();
 };
 
 export const retry = () => {
@@ -44,6 +45,7 @@ export const retry = () => {
   resetScore();
   countDown();
   setLastHitTime(0);
+  charaReset();
 };
 
 const cameraMoveResult = () => {
