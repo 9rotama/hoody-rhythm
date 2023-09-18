@@ -52,7 +52,6 @@ button {
   }
 }
 
-
 #score-text {
   font-size: 120px;
   font-weight: 900;
@@ -66,7 +65,6 @@ button {
     font-size: 90px;
   }
 }
-
 
 #result {
   position: absolute;
@@ -99,7 +97,6 @@ button {
 
 #button-container {
   align-items: bottom;
-  gap: 20px;
 
   @media screen and (max-height: 500px) {
     bottom: 10px;
@@ -107,6 +104,10 @@ button {
 }
 
 .button {
+  padding: 10px 10px 0;
+}
+
+.button-view {
   font-family: Montserrat, sans-serif;
   width: 100px;
   height: 100px;
@@ -130,42 +131,22 @@ button {
   justify-content: center;
 }
 
-#button-red {
+#button-red > div {
   background: #ff0060;
   box-shadow: 0 var(--button-height) 0 #a0003d;
 }
 
-#button-red:active {
-  box-shadow: none;
-  transform: translateY(var(--button-height));
-}
-
-#button-yellow {
-  background: #dee42c;
-  box-shadow: 0 var(--button-height) 0 #989c18;
-}
-
-#button-yellow:active {
-  box-shadow: none;
-  transform: translateY(var(--button-height));
-}
-
-#button-green {
-  background: #00dfa2;
-  box-shadow: 0 var(--button-height) 0 #00976f;
-}
-
-#button-green:active {
-  box-shadow: none;
-  transform: translateY(var(--button-height));
-}
-
-#button-blue {
+#button-blue > div {
   background: #0079ff;
   box-shadow: 0 var(--button-height) 0 #0052b1;
 }
 
-#button-blue:active {
+#button-red:active > div {
+  box-shadow: none;
+  transform: translateY(var(--button-height));
+}
+
+#button-blue:active > div {
   box-shadow: none;
   transform: translateY(var(--button-height));
 }
@@ -217,7 +198,7 @@ button {
   width: 100vw;
   height: 100vh;
   background: #22224490;
-  color:white;
+  color: white;
   z-index: 99999999;
 }
 
@@ -226,7 +207,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh
+  height: 100vh;
 }
 
 #rotate-phone span {
@@ -234,7 +215,7 @@ button {
 }
 
 #rotate-phone p {
-  font-size: 30px
+  font-size: 30px;
 }
 
 .countdown-fadein {
