@@ -60,15 +60,20 @@ export const initUi = () => {
 
     noteTypeKeyMaps.forEach((e) => {
       const button = document.createElement("button");
+      const buttonView = document.createElement("div");
+
       button.classList.add("button");
       button.classList.add("is-center");
       button.id = `button-${e.name}`;
-      button.textContent = e.key.toUpperCase();
+      buttonView.classList.add("button-view");
+      buttonView.classList.add("is-center");
+      buttonView.textContent = e.key.toUpperCase();
       button.addEventListener("touchstart", () => {
         if (getGameState() !== "playing") return;
         charaSwing();
         judgeNote(e.key);
       });
+      button.appendChild(buttonView);
       buttonContainer.appendChild(button);
     });
   } else {
