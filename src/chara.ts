@@ -1,9 +1,14 @@
 import * as THREE from "three";
 import { getGameState, rootClock, scene } from "./main";
 
+type CharaState = "normal" | "swing" | "gameOver";
+
+export let charaState: CharaState = "normal";
+
 export const charaPos = new THREE.Vector3(8.5, 0.5, 0);
 
 const normalTexture = new THREE.TextureLoader().load("chara/normal.png");
+const normal2Texture = new THREE.TextureLoader().load("chara/normal2.png");
 const hitTexture = new THREE.TextureLoader().load("chara/hit.png");
 const overTexture = new THREE.TextureLoader().load("chara/over.png");
 const over2Texture = new THREE.TextureLoader().load("chara/over2.png");
@@ -14,10 +19,15 @@ const normalMaterial = new THREE.SpriteMaterial({
   color: spriteMaterialColor,
   transparent: true,
   alphaTest: 0.5,
-
   fog: false,
 });
-
+const normal2Material = new THREE.SpriteMaterial({
+  map: normal2Texture,
+  color: spriteMaterialColor,
+  transparent: true,
+  alphaTest: 0.5,
+  fog: false,
+});
 const hitMaterial = new THREE.SpriteMaterial({
   map: hitTexture,
   color: spriteMaterialColor,
@@ -49,50 +59,79 @@ let spriteChangeStack = 0;
 export const addChara = () => {
   sprite.position.set(charaPos.x, charaPos.y, charaPos.z);
   scene.add(sprite);
+  charaNormal();
+};
+
+export const isLockedSpriteAmongSwing = false;
+
+export const charaNormal = () => {
+  const changeSpan = 1;
+  const timeTriggered = rootClock.getElapsedTime();
+  let timeChanged = timeTriggered;
+  let isSpriteTwo = false;
+  sprite.material = normalMaterial;
+  charaState = "normal";
+
+  const spriteChange = () => {
+    console.log();
+    if (charaState === "normal") {
+      requestAnimationFrame(spriteChange);
+
+      if (rootClock.getElapsedTime() - timeChanged > changeSpan) {
+        timeChanged = rootClock.getElapsedTime();
+        if (isSpriteTwo) {
+          isSpriteTwo = false;
+          sprite.material = normalMaterial;
+        } else {
+          isSpriteTwo = true;
+          sprite.material = normal2Material;
+        }
+      }
+    }
+  };
+
+  spriteChange();
 };
 
 export const charaSwing = () => {
   sprite.material = hitMaterial;
   spriteChangeStack += 1;
+  charaState = "swing";
 
   setTimeout(() => {
     spriteChangeStack -= 1;
     if (spriteChangeStack < 1) {
       if (getGameState() !== "playing") return;
 
-      sprite.material = normalMaterial;
+      charaNormal();
     }
   }, 300);
 };
 
-const gameOverSpriteChangeTime = 0.04;
-let gameOverSpriteChangeClock = 0;
-let isGameOverSpriteTwo = false;
-
 export const charaGameOver = () => {
+  const changeSpan = 1;
+  const timeTriggered = rootClock.getElapsedTime();
+  let timeChanged = timeTriggered;
+  let isSpriteTwo = false;
   sprite.material = overMaterial;
+  charaState = "gameOver";
 
-  charaGameOverSpriteChange();
-};
+  const spriteChange = () => {
+    if (charaState === "gameOver") {
+      requestAnimationFrame(spriteChange);
 
-const charaGameOverSpriteChange = () => {
-  const animation = requestAnimationFrame(charaGameOverSpriteChange);
-
-  gameOverSpriteChangeClock += rootClock.getDelta();
-  if (gameOverSpriteChangeClock > gameOverSpriteChangeTime) {
-    gameOverSpriteChangeClock = 0;
-    if (isGameOverSpriteTwo) {
-      sprite.material = overMaterial;
-      isGameOverSpriteTwo = false;
-    } else {
-      sprite.material = over2Material;
-      isGameOverSpriteTwo = true;
+      if (rootClock.getElapsedTime() - timeChanged > changeSpan) {
+        timeChanged = rootClock.getElapsedTime();
+        if (isSpriteTwo) {
+          isSpriteTwo = false;
+          sprite.material = overMaterial;
+        } else {
+          isSpriteTwo = true;
+          sprite.material = over2Material;
+        }
+      }
     }
-  }
+  };
 
-  if (getGameState() !== "result") cancelAnimationFrame(animation);
-};
-
-export const charaReset = () => {
-  sprite.material = normalMaterial;
+  spriteChange();
 };
