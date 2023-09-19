@@ -1,3 +1,4 @@
+import { charaNormal, charaReady } from "./chara";
 import { gameClock, setGameState } from "./main";
 
 const countdownText = document.getElementById("countdown-text");
@@ -6,6 +7,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const countDown = async () => {
   if (countdownText) {
+    charaReady();
     await sleep(1000);
     countdownText.classList.add("countdown-fadein");
     countdownText.textContent = "READY...";
@@ -13,6 +15,7 @@ export const countDown = async () => {
     countdownText.textContent = "GO!!";
     setGameState("playing");
     gameClock.start();
+    charaNormal();
 
     await sleep(800);
     countdownText.classList.add("countdown-fadeout");

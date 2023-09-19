@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { getGameState, rootClock, scene } from "./main";
 
-type CharaState = "normal" | "swing" | "gameOver";
+type CharaState = "normal" | "ready" | "swing" | "gameOver";
 
 export let charaState: CharaState = "normal";
 
@@ -12,6 +12,8 @@ const normal2Texture = new THREE.TextureLoader().load("chara/normal2.png");
 const hitTexture = new THREE.TextureLoader().load("chara/hit.png");
 const overTexture = new THREE.TextureLoader().load("chara/over.png");
 const over2Texture = new THREE.TextureLoader().load("chara/over2.png");
+const readyTexture = new THREE.TextureLoader().load("chara/ready.png");
+const ready2Texture = new THREE.TextureLoader().load("chara/ready2.png");
 
 const spriteMaterialColor = "#ffffff";
 const normalMaterial = new THREE.SpriteMaterial({
@@ -50,6 +52,20 @@ const over2Material = new THREE.SpriteMaterial({
   alphaTest: 0.5,
   fog: false,
 });
+const readyMaterial = new THREE.SpriteMaterial({
+  map: readyTexture,
+  color: spriteMaterialColor,
+  transparent: true,
+  alphaTest: 0.5,
+  fog: false,
+});
+const ready2Material = new THREE.SpriteMaterial({
+  map: ready2Texture,
+  color: spriteMaterialColor,
+  transparent: true,
+  alphaTest: 0.5,
+  fog: false,
+});
 
 const sprite = new THREE.Sprite(normalMaterial);
 sprite.scale.set(6, 6, 1);
@@ -59,10 +75,39 @@ let spriteChangeStack = 0;
 export const addChara = () => {
   sprite.position.set(charaPos.x, charaPos.y, charaPos.z);
   scene.add(sprite);
-  charaNormal();
+  charaReady();
 };
 
 export const isLockedSpriteAmongSwing = false;
+
+export const charaReady = () => {
+  const changeSpan = 1;
+  const timeTriggered = rootClock.getElapsedTime();
+  let timeChanged = timeTriggered;
+  let isSpriteTwo = false;
+  sprite.material = readyMaterial;
+  charaState = "ready";
+
+  const spriteChange = () => {
+    console.log();
+    if (charaState === "ready") {
+      requestAnimationFrame(spriteChange);
+
+      if (rootClock.getElapsedTime() - timeChanged > changeSpan) {
+        timeChanged = rootClock.getElapsedTime();
+        if (isSpriteTwo) {
+          isSpriteTwo = false;
+          sprite.material = readyMaterial;
+        } else {
+          isSpriteTwo = true;
+          sprite.material = ready2Material;
+        }
+      }
+    }
+  };
+
+  spriteChange();
+};
 
 export const charaNormal = () => {
   const changeSpan = 1;
